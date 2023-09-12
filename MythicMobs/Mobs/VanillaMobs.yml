@@ -14,7 +14,7 @@ WITHER_SKELETON:
   Damage: 10
 GIANT:
   Health: 100
-  Damage: 20
+  Damage: 75
   Skills:
   - potion{type=POISON;duration=100;lvl=1} @target ~onAttack
   AIGoalSelectors:
