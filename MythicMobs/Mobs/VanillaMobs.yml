@@ -2,10 +2,19 @@
 # http://www.mythicmobs.net
 #  
 ZOMBIE:
+  Display: 'Zombie'
   Health: 30
   Damage: 5
+  Faction: Undead
+  Equipment:
+  - Zombie_EquipmentDropTable
   Skills:
   - potion{type=HUNGER;duration=100;lvl=3} @target ~onAttack
+  Options:
+    AlwaysShowName: false
+SKELETON:
+  Health: 20
+  Damage: 5
 CAVE_SPIDER:
   Health: 30
   Damage: 7
