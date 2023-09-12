@@ -2,16 +2,119 @@
 # http://www.mythicmobs.net
 #  
 ZOMBIE:
-  Health: 30
-  Damage: 5
+  Health: 35
+  Damage: 7.5
   Skills:
   - potion{type=HUNGER;duration=100;lvl=3} @target ~onAttack
+GOLEM:
+  Health: 250
+  Damage: 25
+  Skills:
+  - potion{type=WITHER;duration=100;lvl=1} @target ~onAttack
+- potion{type=BLINDNESS;duration=100;lvl=3} @target ~onAttack
+- potion{type=nausea;duration=100;lvl=5} @target ~onAttack
+BLAZE:
+  Health: 50
+  Damage: 15
+  Skills:
+  - potion{type=MINING_FATIGUE;duration=100;lvl=3} @target ~onAttack
+  - potion{type=SLOWNESS;duration=50;lvl=2} @target ~onAttack
+  - potion{type=FIRE_RESISTANCE;duration=300;lvl=1} @target ~onAttack
+  - potion{type=WITHER;duration=125;lvl=2} @target ~onAttack
 CAVE_SPIDER:
   Health: 30
   Damage: 7
 WITHER_SKELETON:
-  Health: 50
+  Health: 100
+  Damage: 25
+  - potion{type=MINING_FATIGUE;duration=300;lvl=1} @target ~onAttack
+  - potion{type=SLOWNESS;duration=25;lvl=2} @target ~onAttack
+  - potion{type=BLINDESS;duration=110;lvl=3} @target ~onAttack
+CREEPER:
+  Health: 250
+  Damage: 50
+  Skills:
+  - potion{type=HUNGER;duration=500;lvl=8} @target ~onAttack
+DROWNED:
+  Health: 45
+  Damage: 9.5
+  Skills:
+  - potion{type=SLOWNESS;duration=100;lvl=3} @target ~onAttack
+ENDERMITE:
+  Health: 35
+  Damage: 7.5
+EVOKER:
+  Health: 75
+  Damage: 25
+  Skills:
+  - potion{type=BLINDNESS;duration=300;lvl=5} @target ~onAttack
+  - potion{type=SLOWNESS;duration=50;lvl=5} @target ~onAttack
+HOGLIN:
+  Health: 85
+  Damage: 22.5
+  Skills:
+  - potion{type=WITHER;duration=100;lvl=1} @target ~onAttack
+HUSK:
+  Health: 75
   Damage: 10
+  Skills:
+  - potion{type=HUNGER;duration=100;lvl=4} @target ~onAttack
+  - potion{type=WEAKNESS;duration=500;lvl=8} @target ~onAttack
+  - potion{type=SPEED;duration=500;lvl=3} @target ~onAttack
+PHANTOM:
+  Health: 0.5
+  Damage: 15
+  Skills:
+  - potion{type=POISON;duration=100;lvl=5} @target ~onAttack
+  - potion{type=BLINDNESS;duration=50;lvl=2} @target ~onAttack
+PIGLIN_BRUTE:
+  Health: 100
+  Damage: 25
+  Skills:
+  - potion{type=SLOWNESS;duration=500;lvl=5} @target ~onAttack
+  - potion{type=DARKNESS;duration=500;lvl=5} @target ~onAttack
+  - potion{type=WITHER;duration=150;lvl=1} @target ~onAttack
+RAVANGER:
+  Health: 350
+  Damage: 50
+  Skills:
+  - potion{type=DARKNESS;duration=1000;lvl=3} @target ~onAttack
+SILVERFISH:
+  Health: 150
+  Damage: 0.5
+  Skills:
+  - potion{type=SLOWNESS;duration=50;lvl=1} @target ~onAttack
+VEX:
+  Health: 0.5
+  Damage: 15
+  Skills:
+  - potion{type=WEAKNESS;duration=75;lvl=2} @target ~onAttack
+VINDICATOR:
+  Health: 15
+  Damage: 35
+  Skills:
+  - potion{type=SLOWNESS;duration=500;lvl=3} @target ~onAttack
+WARDEN:
+  Health: 1000
+  Damage: 50
+  Skills:
+  - potion{type=WITHER;duration=125;lvl=5} @target ~onAttack
+ZOMBIE_VILLAGER:
+  Health: 100
+  Damage: 1
+  Skills:
+  - potion{type=BLINDNESS;duration=15;lvl=3} @target ~onAttack
+enderman:
+  Health: 80
+  Damage: 21
+  Skills:
+  - potion{type=SLOWNESS;duration=200;lvl=3} @target ~onAttack
+  - potion{type=BLINDNESS;duration=500;lvl=3} @target ~onAttack
+PIGLIN:
+  Health: 50
+  Damage: 15.5
+  Skills:
+  - potion{type=DARKNESS;duration=100;lvl=3} @target ~onAttack
 GIANT:
   Health: 100
   Damage: 75
