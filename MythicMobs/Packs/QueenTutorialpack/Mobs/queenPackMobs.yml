@@ -1,0 +1,678 @@
+################# ----+ QUEEN'S TUTORIAL MOB PACK +---- ########################
+#                                                                              #
+#   Welcome! Included are 10 mobs and 1 boss, completely free to use as-is,    #
+#   but I highly recommend you change values to match what you want. The       #
+#   whole purpose of this pack is for you to learn from and experiment with.   #
+#   Not only will you learn what sorts of things you can do with MythicMobs,   #
+#   but you'll also learn certain elements of game design to make your players #
+#   enjoy your creations and come back for more. Or at least that's the goal.  #
+#   If you find yourself stuck, check the wiki or the discord for help!        #
+#                                                                              #
+#  * Remember to double check the skills yml for more information on things *  #
+#                                                                              #
+#                           --+ Sections +--                                   #
+#                                                                              #
+#                            1. Staple Mobs                                    #
+#                                                                              #
+#                          2. Elemental Mobs                                   #
+#                                                                              #
+#                           3. Example Boss                                    #
+#                                                                              #
+################################################################################
+
+
+
+#                     --+ STAPLE MOBS +--                                      #
+
+## In this section, the staple classes and starting monsters are represented #
+# with the Knight, the Archer, the Rogue, and the Summoner, all within the   #
+# context of undead enemies. Also added are a couple of simple souls-like    #
+# mobs such as a reviving skeleton, a mimic, and a vicious wolf.            ##
+
+
+
+#################### ZOMBIE KNIGHT ##############################
+# Let's start with an archetype that takes the form of a melee  #
+# fighter/tank. The zombie here has skills that make it more    #
+# complex than just a mob with higher damage and health than    #
+# its vanilla counterpart. The zombie knight is capable of      #
+# wide swiping sword attacks, a shield mode, a lunge attack,    #
+# basic backsteps, and mild strafing.                           #
+#################################################################
+
+zombieKnight: ## Internal name of mob, can be whatever you want ##
+  Type: ZOMBIE ## Base minecraft mob to use ##
+  Display: '&fGeneric Zombie Knight' ## You can use the basic color codes along with <color:#hexcode> ##
+  Health: 30 ## Default spigot caps at 2048, change in your spigot.yml if you'd like ##
+  Damage: 0 ## Damage done by a melee attack, doesn't really matter in this case since we're replacing the default vanilla attack ##
+  Faction: Undead ## Factions can be used to make certain mobs target each other, or certain skills exclude factions from their target list ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Factions ##
+  Equipment: ## In this case, we are using generic vanilla items ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Equipment ##
+  - IRON_HELMET HEAD
+  - IRON_CHESTPLATE CHEST
+  - IRON_LEGGINGS LEGS
+  - IRON_BOOTS FEET
+  - IRON_SWORD HAND
+  - SHIELD OFFHAND
+  DamageModifiers: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/DamageModifiers ##
+  - FIRE 1.50 ## The zombie is weak to fire and takes 50% extra damage % ##
+  - PROJECTILE 0.8 ## However, it is slightly resistant to arrows and other projectiles, taking 80% ##
+  Drops: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/drops/Drops ##
+  - ROTTEN_FLESH 1 0.5 ## A 50% chance of dropping 1 rotten flesh on death ##
+  - EMERALD 1 0.3 ## A 30% chance of dropping 1 emerald on death ##
+  - IRON_SWORD 1 0.1 ## These are all the spigot material names for vanilla items,   #
+  - IRON_HELMET 1 0.1 # but you can use custom mythic items if you put the name here ##
+  - IRON_CHESTPLATE 1 0.1 #
+  - IRON_LEGGINGS 1 0.1 #
+  - IRON_BOOTS 1 0.1 #
+  Skills: ## This section is where the magic happens ##
+  - sound{s=block.chain.break;p=1.3;v=1.1;sc=master} @self ~onDamaged ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/skills/effects/sound #
+  - sound{s=block.chain.break;p=1.1;v=1.1;sc=master} @self ~onDamaged # s = name of sound (same names as /playsound), p = pitch from 0.01 to 2.0, v = volume (how far away players can hear), sc = soundCategory #
+  - sound{s=item.armor.equip_iron;p=1.8;v=1.1;sc=master} @self ~onDamaged # By layering multiple sounds together, we get a cool effect that resembles iron armor being struck ##
+  - skill{s=ZombieSwing} @self ~onTimer:100 0.65 >50% ## Every 100 ticks, there's a 65% chance of the skill activating, if the mob is above 50% health ##
+  - skill{s=ZombieSwing} @self ~onTimer:85 0.85 <50% ## A higher chance and faster rate of the skill activating when below 50% health, gives the mob some variety in attack patterns ##
+  - skill{s=ZombieSwingInstant;sync=true} @self ~onAttack ## This skill will cancel and replace the mob's default vanilla attack ##
+  - skill{s=ZombieLungeRandomizer} @self ~onTimer:140 0.3 ## Every 140 ticks, there's a 30% chance of the skill being executed ##
+  - skill{s=FastStepsRandomizer} @self ~onTimer:95 0.5 ## Every 95 ticks, there's a 50% chance for this skill to be executed ##
+  - skill{s=BackstepRandomizer} @self ~onTimer:100 0.25 ## This is one of the self-preservation skills that can prolong the fight and add more strategy ##
+  - skill{s=MiniStrafeRandomizer;repeat=<random.12to16>;repeatInterval=8} @self ~onTimer:230 0.6 ## These skills basically give the mob a random velocity that   #
+  - skill{s=MiniStrafeRandomizer;repeat=<random.4to6>;repeatInterval=4} @self ~onTimer:90 0.15   # resemble rudimentary strafing, making the mob a little more   #
+  - skill{s=MiniStrafeRandomizer;repeat=<random.8to12>;repeatInterval=8} @self ~onDamaged 0.3    # dynamic and harder to hit. Repeated a random number of times ##
+  - skill{s=BackupRandomizer} @self ~onTimer:65 0.85 >50% ## Basically the opposite of charging forwards, but not as spontaneous as a leaping backstep,  #
+  - skill{s=BackupRandomizer} @self ~onAttack 0.55 >50%   # making players miss if they're not too careful with their attacks.                          ##
+  - skill{s=BackupRandomizer} @self ~onAttack 0.65 <50%     ## Playing around with health thresholds and timers makes the execution more organic ##
+  - skill{s=BackupRandomizer} @self ~onTimer:50 0.85 <50%
+  - skill{s=ShieldStance} @self ~onTimer:115 0.25 ## The shield stance will make the mob invulnerable with visual effects notifying the player of this ##
+  - skill{s=ShieldStance} @self ~onDamaged 0.1 ## This blocking mode can also be considered a self-preservation skill ##
+  - skill{s=ShieldStance} @self ~onAttack 0.05
+  - skill{s=ShieldBlock;sync=true} @self ~onDamaged ## Basically, when hit while in the shield stance, this skill will prevent damage from happening ##
+  Options: ## The options listed basically stop the mob from dropping what it would normally, stops it from transforming into a husk, ##
+  ## lets it despawn on its own, allows the player to hit the mob more quickly than vanilla, and stops it from burning in sunlight. ##
+  ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options ##
+    PreventOtherDrops: true
+    PreventTransformation: true
+    Despawn: true
+    NoDamageTicks: 6
+    MovementSpeed: 0.188
+    PreventSunburn: true
+
+
+
+
+
+#################### SKELETON ARCHER ############################
+# This mob is pretty simple as it mostly reuses skills we have  #
+# already defined for the Zombie Knight. You can save yourself  #
+# unnecessary work if you can sacrifice a bit of randomness and #
+# customizability this way.                                     #
+#################################################################
+
+skeletonArcher: ## Internal name of mob ##
+  Type: SKELETON ## Base minecraft mob to use ##
+  Display: '&fGeneric Skeleton Archer' ## You can use the basic color codes along with <color:#hexcode> ##
+  Health: 20 ## Default spigot caps at 2048, change in your spigot.yml if you'd like ##
+  Damage: 0 ## In this case, does not affect arrow damage, only melee attacks ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Mobs ##
+  Faction: Undead ## Factions can be used to make certain mobs target each other, or certain skills exclude factions from their target list ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Factions ##
+  Equipment: ## Using typical "archer" looking equipment
+  - LEATHER_HELMET HEAD
+  - CHAINMAIL_CHESTPLATE CHEST
+  - CHAINMAIL_LEGGINGS LEGS
+  - LEATHER_BOOTS FEET
+  - BOW HAND
+  Drops: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/drops/Drops ##
+  - BONE 1 0.5 ## Has a 50% chance of dropping 1 bone on death ##               # These can stack to drop #
+  - BONE 2 0.3 ## Has a 30% chance of dropping 2 bones on death ##              # 3 bones total           #
+  - ARROW 1 0.5
+  - ARROW 1 0.3
+  - BOW 1 0.05 ## Low chance (5%) of dropping a bow on death ##
+  - CHAINMAIL_HELMET 1 0.1
+  - CHAINMAIL_CHESTPLATE 1 0.1
+  - CHAINMAIL_LEGGINGS 1 0.1
+  - CHAINMAIL_BOOTS 1 0.1
+  DamageModifiers: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/DamageModifiers ##
+  - FIRE 1.50 ## Weak to fire as an undead ##
+  - PROJECTILE 0.33 ## Arrows seem to pass through the bones ##
+  - ICE 1.0 ## Ice works decently against it ##
+  Skills:
+  - skill{s=HardArrowShot;sync=true} @self ~onShoot ## This skill will replace the vanilla skeleton arrow shot ##
+  - skill{s=ArrowVolleyRandomizer} @self ~onTimer:80 0.35 >20% ## Executes every 80 ticks 35% of the time when above 20% health ##
+                              ## Uses the same self-preservation skills as the zombie knight ##
+  - skill{s=BackstepRandomizer} @self ~onTimer:100 0.25 >50%
+  - skill{s=BackstepRandomizer} @self ~onTimer:105 0.45 <50%
+  - skill{s=BackstepRandomizer} @self ~onShoot 0.25 ## A 25% chance of trying to leap back after shooting ##
+  - skill{s=BackstepRandomizer} @self ~onDamaged 0.55 ## A 55% chance of trying to leap back after being damaged ##
+  - skill{s=MiniStrafeRandomizer;repeat=<random.12to16>;repeatInterval=8} @self ~onTimer:210 0.65
+  - skill{s=MiniStrafeRandomizer;repeat=<random.4to6>;repeatInterval=4} @self ~onTimer:95 0.25
+  - skill{s=MiniStrafeRandomizer;repeat=<random.8to12>;repeatInterval=8} @self ~onDamaged 0.35
+  - skill{s=BackupRandomizer} @self ~onTimer:75 0.75 >50%
+  - skill{s=BackupRandomizer} @self ~onTimer:50 0.85 <50%
+  Options: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options ##
+    PreventOtherDrops: true
+    FollowRange: 60 ## The mob has quite a bit of range, it can spot targets from 60 blocks away ##
+    PreventTransformation: true
+    Despawn: true
+    MovementSpeed: 0.222
+    PreventSunburn: true
+    NoDamageTicks: 6
+
+
+
+
+
+#################### SKELETON ROGUE #############################
+# Another melee mob, this time copying the archetype of an RPG  #
+# rogue/assassin. Higher mobility, using a random dodge skill,  #
+# throwing knives against ranged players, and instead of        #
+# replacing the vanilla attack, pairing it with a quick second  #
+# strike that can scare players and make them panic.            #
+#################################################################
+
+skeletonRogue:
+  Type: SKELETON
+  Display: '&8Generic Skeleton Rogue'
+  Health: 20
+  Damage: 4
+  Faction: Undead
+  Equipment: ## Rogue looking armours ##
+  - STONE_SWORD HAND
+  - STONE_SWORD OFFHAND
+  - CHAINMAIL_HELMET HEAD
+  - LEATHER_CHESTPLATE CHEST
+  - CHAINMAIL_LEGGINGS LEGS
+  - LEATHER_BOOTS FEET
+  Drops: ## You could give it some more enticing drops ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/drops/Drops ##
+  - BONE 1 0.5
+  - BONE 1 0.35
+  - EMERALD 1 0.5
+  - EMERALD 2 0.3
+  DamageModifiers:
+  - FIRE 1.75 ## Fire burns the undead ##
+  - PROJECTILE 0.33 ## Arrows tend to go through bones ##
+  Skills:
+  - effect:spin{d=5;v=-60} @self ~onAttack ## A visual effect ##
+  - setNoDamageTicks{ticks=0;delay=1} @trigger ~onAttack ## Consecutive attack prep ##
+  - effect:particles{p=sweep_attack;a=1;hs=0.5;vs=0;uel=true} @self ~onAttack ## Visual and audio #
+  - sound{s=entity.player.attack.sweep;p=1.4;sc=master} @self ~onAttack       # sound effects    ##
+  - sound{s=entity.player.attack.crit;p=1.7;sc=master} @self ~onAttack
+                     ## Self Preservation Skills ##
+  - skill{s=BackstepRandomizer} @self ~onTimer:190 0.65
+  - skill{s=BackstepRandomizer} @self ~onAttack 0.88
+  - skill{s=Backstep} @self ~onDamaged 0.2
+  - skill{s=FastStepsRandomizer} @self ~onTimer:60 0.25 ## Faster than the Zombie Knight's setting ##
+  - skill{s=RogueStrafes} @self ~onTimer:2 0.85 ## The strafes happen quickly, making the mob harder to hit ##
+  - skill{s=RandomDodgeRandomizer;delay=<random.1to10>} @self ~onTimer:75 0.65 ## A powerful form of movement ##
+                       ## Offense Skills ##
+  - skill{s=ExtraStrike} @target ~onAttack ## This is the double slash strike that happens immediately after an attack ##
+  - skill{s=DaggerThrow} @self ~onDamaged 0.1
+  - skill{s=DaggerThrow} @self ~onTimer:115 0.35
+  Options: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options ##
+    PreventOtherDrops: true
+    FollowRange: 40
+    AlwaysShowName: false
+    MovementSpeed: 0.233
+    Despawn: true
+    NoDamageTicks: 6
+    PreventSunburn: true
+
+
+
+
+
+###################### WITCH SUMMONER ###########################
+# This mob is a staple of the souls games, and I tried to make  #
+# a creature that can be just as annoying here. Fast, elusive,  #
+# and deadly when in groups. Also makes for a powerful ally if  #
+# the player tames it instead of kills it.                      #
+#################################################################
+
+witchSummoner:
+  Type: WITCH
+  Display: '&2Generic Summoner Witch'
+  Health: 30
+  Damage: 0
+  Faction: Undead
+  Drops: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/drops/Drops ##
+  - GUNPOWDER 1 0.2
+  - GLOWSTONE_DUST 1 0.2
+  - SUGAR 1 0.2
+  DamageModifiers: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options ##
+  - ENTITY_ATTACK 1.0
+  - PROJECTILE 1.0
+  - ENTITY_EXPLOSION 0.9
+  - BLOCK_EXPLOSION 0.9
+  - FIRE 1.0
+  - THORNS 0.5
+  - FALL 1.0
+  - CONTACT 0.1
+  - MAGIC 0.5
+  - ICE 1.0
+  Skills:
+  - signal{s=ResTrigger} @mir{r=15;t=undyingSkeletonPile} ~onTimer:20 ## Sends a signal every second to undying skeleton piles within 15 blocks waiting to resurrect ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Skills/mechanics/signal ##
+  - skill{s=BackstepRandomizer} @self ~onTimer:110 0.35 ## Keeps the witch more mobile ##
+  - skill{s=MiniStrafeRandomizer;repeat=<random.4to6>;repeatInterval=4} @self ~onTimer:90 0.35
+  - skill{s=ShadowMissileRandomizer} @self ~onTimer:120 0.25 ## A slow, homing projectile that applies weakness and mining fatigue on hit ##
+  - skill{s=WitchTeleport} @self ~onDamaged 0.5 ## The witch panics kind of like an enderman and tries to TP ##
+  - skill{s=WitchTeleport} @self ~onTimer:20 0.1 ## 10% chance every second to try to teleport ##
+  - skill{s=WitchSummonRandomizer} @self ~onTimer:205 0.55 ## This is what summons the undying skeleton reinforcements ##
+            ## Just sound effects to replace the vanilla ones ##
+  - sound{s=entity.witch.celebrate;p=1.15;v=2;sc=master} @self ~onShoot
+  - sound{s=entity.elder_guardian.hurt;p=2.0;sc=master} @self ~onDamaged
+  - sound{s=entity.witch.hurt;p=0.85;sc=master} @self ~onDamaged
+  - sound{s=entity.zombie.infect;p=1.5;sc=master} @self ~onDeath
+  - sound{s=entity.witch.death;p=0.85;sc=master} @self ~onDeath
+  - sound{s=entity.ghast.death;p=0.85;v=0.1;sc=master} @self ~onDeath
+  Equipment:
+  - AIR HEAD
+  - BONE HAND
+  - AIR CHEST
+  - AIR LEGS
+  - AIR FEET
+  Options: ## A slightly less noisy witch ##
+    Despawn: true
+    PreventOtherDrops: true
+    Silent: true
+    NoDamageTicks: 6
+    MovementSpeed: 0.244
+
+
+
+
+
+###################### TIMBER WOLF ##############################
+# This mob is a staple of the souls games, and I tried to make  #
+# a creature that can be just as annoying here. Fast, elusive,  #
+# and deadly when in groups. Also makes for a powerful ally if  #
+# the player tames it instead of kills it.                      #
+#################################################################
+
+timberWolf:
+  Type: WOLF
+  Display: '&7Generic Timber Wolf'
+  Health: 20
+  Damage: 4
+  DamageModifiers:
+  - FIRE 1.2 ## Slightly weak against fire ##
+  Skills:
+  - potion{type=SLOW;duration=<random.20to30>;level=3;p=false} @self ~onTimer:55 0.15 ## This random slowdown can throw players off and make them miss ##
+              ## Sound effects for when it hits something ##
+  - sound{s=entity.dolphin.eat;p=0.75;sc=master} @self ~onAttack
+  - sound{s=entity.fox.bite;p=0.75;sc=master} @self ~onAttack
+  - sound{s=entity.fox.aggro;p=0.5;sc=master} @self ~onAttack
+  - sound{s=entity.goat.eat;p=1.15;sc=master} @self ~onAttack
+  - sound{s=entity.wolf.ambient;p=0.95;sc=master} @self ~onAttack 0.75
+             ## Self preservation skills ##                ## These are basically the skills we've already done, but fit for a wolf ##
+  - skill{s=WolfBackstep} @self ~onTimer:110 0.5
+  - skill{s=WolfBackstep;delay=<random.10to20>} @self ~onAttack 0.7
+  - skill{s=WolfStrafes} @self ~onTimer:2 0.25
+  - heal{a=4} @self ~onKill ## Gives itself 2 hearts when it kills something, probably a sheep or rabbit ##
+  - heal{a=10} @self ~onKillPlayer ## Gives itself 5 hearts when it kills a player, I guess the wolf absorbs health through eating ##
+            ## Offense Related Skills ##
+  - leap{velocity=<random.float.-160.0to-180.0>;delay=<random.1to10>} @targetLocation ~onAttack ## Leaps away after attacking something, makes it hard to counter attack ##
+  - skill{s=WolfLeap} @self ~onTimer:85 0.2 ## The wolf's version of a lunging leap skill ##
+  Options: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options ##
+    Despawn: false
+    Persistent: true
+    FollowRange: 50
+    Silent: false
+    PreventOtherDrops: false
+    Tameable: true
+    PreventRenaming: false
+    NoDamageTicks: 5
+
+
+
+
+
+###################### UNDYING SKELETON #########################
+# Another staple of the souls games ported to minecraft. This   #
+# mob basically will continue to resurrect itself so long as it #
+# gets a signal from the summoner mob, otherwise destroying     #
+# itself after some time has passed. The mob itself is very     #
+# basic and relatively weak, reusing skills we've already done. #
+#################################################################
+
+undyingSkeleton:
+  Type: SKELETON
+  Display: '&7Generic Undying Skeleton'
+  Health: 20
+  Damage: 4
+  Faction: Undead
+  DamageModifiers: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/DamageModifiers ##
+  - ENTITY_ATTACK 0.95
+  - PROJECTILE 0.25
+  - MAGIC 2.0 ## This includes splash potions ##
+  - ENTITY_EXPLOSION 1.1
+  - BLOCK_EXPLOSION 1.1
+  - FIRE 1.25
+  Skills:
+  - skill{s=UndyingSkeletonRes} @self ~onDeath ## This skill is what stops the mob from dying as long as the summoner is around ##
+  - sound{s=entity.player.attack.knockback;p=1.7;sc=master} @self ~onAttack
+  - potion{type=SLOW;duration=20;level=10;p=false} @self ~onAttack
+## The self preservation skills here are all reused from other mobs ##
+  - skill{s=BackstepRandomizer} @self ~onTimer:100 0.15
+  - skill{s=BackstepRandomizer} @self ~onAttack 0.88
+  - skill{s=BackupRandomizer} @self ~onDamaged 0.15
+  - skill{s=FastStepsRandomizer} @self ~onDamaged 0.15
+  - skill{s=MiniStrafeRandomizer} @self ~onTimer:180 0.35
+  Equipment:
+  - STONE_SWORD HAND
+  - AIR HEAD
+  - AIR CHEST
+  - AIR LEGS
+  - AIR FEET
+  Options: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options ##
+    KnockbackResistance: 0.15
+    PreventOtherDrops: true
+    Despawn: true
+    NoDamageTicks: 6
+    MovementSpeed: 0.225
+    PreventSunburn: true
+
+undyingSkeletonPile: ## The secondary mob connected to the undying skeleton. Essentially waits for the signal from the necromancer before reviving, or else removes itself after a while ##
+  Type: SKELETON
+  Display: '&7Generic Undying Skeleton'
+  Health: 10
+  Damage: 0
+  Faction: Undead
+  Disguise: Armor_Stand setYModifier -1.4 setInvisible true setCustomNameVisible false setNoBasePlate true setRightArm 300,180,290 ## Essentially visual effects so the players know where the mob is ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Disguises ##
+  Skills:
+  - effect:itemspray{item=BONE;amount=3;velocity=0.2;d=30;ap=false} @selfLocation ~onSpawn ## Shoots out a bunch of
+  - effect:particles{p=ash;a=<random.1to3>;hs=0.32;vs=0.8;y=0.3} @self ~onTimer:1
+  - effect:particles{p=soul;a=1;hs=0;vs=0.8;y=0.3} @self ~onDeath
+  - sound{s=block.lava.extinguish;p=0.61;sc=master;v=0.88} @self ~onDeath
+  - sound{s=entity.skeleton.death;p=0.81;sc=master;v=1.38} @self ~onDeath
+  - skill{s=UndyingSkeletonResAni} @self ~onSignal:ResTrigger ## This skill will execute when the signal "ResTrigger" is detected, i.e. from the summoner mob ##
+  - remove{delay=200} @self ~onSpawn ## The mob will try to remove itself after 10 seconds if no signals force it to resurrect ##
+  Equipment:
+  - SKELETON_SKULL HEAD
+  - STONE_SWORD HAND
+  - AIR CHEST
+  - AIR LEGS
+  - AIR FEET
+  Options:
+    Silent: true
+    NoAI: true
+    Invincible: true
+    Collidable: false
+    ApplyInvisibility: true
+    KnockbackResistance: 1.0
+    PreventOtherDrops: true
+    Despawn: true
+    NoDamageTicks: 6
+    MovementSpeed: 0.00
+    PreventSunburn: true
+
+
+
+
+########################### MIMIC ###############################
+# Finally, the mimic. Plays around with disguises and player    #
+# expectations. The mimic itself is a wither skeleton disguised #
+# as a stationary barrel, revealing its true form when left or  #
+# right clicked. The rest of the skills are reused movements.   #
+#################################################################
+
+Mimic:
+  Type: WITHER_SKELETON
+  Display: '&8Generic Mimic'
+  Health: 40
+  Disguise: Falling_Block BARREL setGridLocked true ## Disguised as a barrel since chests don't seem to work. Gridlocked meaning it aligns with other blocks. ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Disguises ##
+  Damage: 8
+  DamageModifiers: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/DamageModifiers ##
+  - ENTITY_ATTACK 1.35
+  - PROJECTILE 0.25
+  - ENTITY_EXPLOSION 0.9
+  - BLOCK_EXPLOSION 0.9
+  - FIRE 2.0
+  - THORNS 0.0
+  - FALL 0.3
+  - CONTACT 0.1
+  - MAGIC 2.0
+  Skills:
+  - setAI{ai=false} @self ~onSpawn ## Keeps the mimic acting like a block at first ##
+  - skill{s=MimicSounds} @self ~onTimer:90 0.33 ## These will be the "ambient" mob sounds as we've set the mob to silent in the options ##
+  - skill{s=MimicSpawn} @self ~onInteract ## This will change the mimic out of block form and into mob form ##
+  - skill{s=MimicSpawn} @self ~onDamaged ## Same here, if players tend to smack things before opening them ##
+  - skill{s=FastStepsRandomizer} @self ~onTimer:105 0.35
+  - skill{s=BackupRandomizer} @self ~onTimer:75 0.3
+  - skill{s=MiniStrafeRandomizer} @target ~onTimer:35 0.15
+  - sound{s=entity.shulker.hurt;p=0.88;sc=master} @self ~onDamaged
+  - sound{s=entity.shulker.death;p=0.88;sc=master} @self ~onDeath
+  - effect:particlesphere{p=ash;a=50;r=1;hs=0.1;vs=0.1;y=0.9} @self ~onDeath
+  Equipment: ## The base mob will not have equipment, but it's transformed version will ##
+  - AIR HEAD
+  - AIR HAND
+  - AIR CHEST
+  - AIR LEGS
+  - AIR FEET
+  Options:
+    KnockbackResistance: 0.75
+    PreventOtherDrops: true
+    Despawn: false
+    Persistent: true
+    NoDamageTicks: 6
+    Silent: true
+    MovementSpeed: 0.225
+    PreventSunburn: true
+
+
+
+
+
+#                     --+ ELEMENTAL MOBS +--                                   #
+
+## In this section, 3 elemental mobs are included with more emphasis on magic #
+# and less physical methods of attack and defense, remember to look back on   #
+# the previous mobs if you find yourself not sure what you're looking at.    ##
+
+
+
+#################### ICE SPIRIT #################################
+# This mob freezes, shoots frost bolts, and applies a custom    #
+# status effect onto its targets. It is also very weak to fire. #
+# You can customize how long the freeze effect lasts for by     #
+# changing which meta skill to call upon (long, mid, or short). #
+#################################################################
+
+iceSpirit:
+  Type: STRAY
+  Display: '&bGeneric Ice Spirit'
+  Health: 20
+  Equipment:
+  - AIR HAND
+  - AIR HEAD
+  - AIR CHEST
+  - AIR LEGS
+  - AIR FEET
+  Drops:  ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/drops/Drops ##
+  - ICE 1 0.5
+  - ICE 1 0.3
+  - ICE 1 0.1
+  - PACKED_ICE 1 0.1
+  Damage: 4
+  DamageModifiers: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/DamageModifiers ##
+  - ENTITY_ATTACK 0.8
+  - PROJECTILE 0.5
+  - ENTITY_EXPLOSION 1.5
+  - BLOCK_EXPLOSION 1.5
+  - FIRE 10.0 ## Weak to Fire ##
+  - THORNS 0.0
+  - FALL 0.0
+  - CONTACT 0.0
+  - MAGIC 2.0
+  - ICE 0.0
+  Skills:
+
+########################################## TIP ##############################################
+# Remember that layering multiple sounds can make something that sounds entirely different! #
+#############################################################################################
+
+  - sound{s=block.glass.break;p=0.6;sc=master;v=0.5} @self ~onDamaged ## Sound to make when hit ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/skills/effects/sound ## s = name of sound (same names as /playsound), p = pitch from 0.01 to 2.0, v = volume (how far away players can hear), sc = soundCategory
+  - sound{s=entity.player.hurt_freeze;p=0.65;sc=master} @self ~onDamaged
+  - sound{s=block.powder_snow.break;p=1.6;sc=master;v=0.1} @self ~onTimer:1 ## A soft ambient sound for the mob ##
+  - sound{s=block.fire.extinguish;p=0.7;sc=master} @self ~onDeath ## Sound to make when killed ##
+  - effect:particlesphere{p=reddust;c=#ffffff;r=0.25;a=20;hs=0.1;vs=0.1;y=0.55} @self ~onTimer:1 ## Ambient particles ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/skills/effects/particlesphere ##
+  - effect:particles{p=reddust;c=#a1dbed;a=5;hs=0.3;vs=0.7;uel=true} @self ~onTimer:1 ## Ambient particles ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/skills/effects/particles ##
+  - effect:particles{p=reddust;c=#d1f4ff;a=5;hs=0.3;vs=0.7;uel=true} @self ~onTimer:1 ## Ambient particles ## c = color in hex format, p = particle name, a = amount of particles, hs = horizontal spread, vs = vertical spread, y = Y offset from target ##
+  - effect:particlesphere{p=reddust;c=#8ce4ff;r=1;a=100;hs=0.1;vs=0.1;y=0.75} @self ~onDeath
+  - potion{t=slow_falling;d=20;l=1;p=false} @self ~onTimer:20 ## Mob gives itself slow falling every 20 ticks ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/potion ##
+  - sudoskill{s=FreezeProcMid} @target ~onAttack 0.77 ## When the mob melee hits something, 77% of the time it makes the target use a skill ##
+  - skill{s=FrostBoltRandomizer} @self ~onTimer:44 0.66 ## Every 44 ticks, there's a 66% chance for the mob to use the skill FrostBoltRandomizer ##
+  Options: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options ##
+    PreventOtherDrops: true
+    ApplyInvisibility: true
+    FollowRange: 25
+    AlwaysShowName: true
+    Silent: true
+    NoDamageTicks: 6
+    MovementSpeed: 0.25
+    Despawn: true
+    PreventSunburn: true
+
+
+
+
+
+#################### FIRE DEMON #################################
+# This mob shoots fireballs, has random movement like a bat     #
+# and shoots a special flamethrower attack that burns.          #
+#################################################################
+
+fireDemon:
+  Type: BLAZE
+  Display: '<color:#7d221d>Generic Fire Demon</color:#7d221d>' ## You can use the basic color codes along with <color:#hexcode> ##
+  Disguise: Strider setCustomName "<color:#7d221d>Generic Fire Demon</color:#7d221d>" setCustomNameVisible true ## Disguises the mob as a red strider with the custom name visible ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Disguises ##
+  Health: 20
+  Equipment: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Equipment ##
+  - AIR HAND
+  - AIR HEAD
+  - AIR CHEST
+  - AIR LEGS
+  - AIR FEET
+  Damage: 4
+  DamageModifiers: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/DamageModifiers ##
+  - ENTITY_ATTACK 0.8
+  - PROJECTILE 0.5
+  - ENTITY_EXPLOSION 1.5
+  - BLOCK_EXPLOSION 1.5
+  - FIRE 0.0
+  - THORNS 0.0
+  - FALL 0.0
+  - CONTACT 0.1
+  - MAGIC 2.0
+  - ICE 3.0 ## Weak to Ice ##
+  Skills:
+  - sound{s=entity.zombie.infect;p=2.0;sc=master} @self ~onDamaged ## Sound to make when hit ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/skills/effects/sound ##
+  - sound{s=entity.blaze.hurt;p=0.75;sc=master} @self ~onDamaged ## Sound to make when hit ##
+  - sound{s=entity.strider.hurt;p=0.65;sc=master} @self ~onDamaged
+  - sound{s=block.candle.extinguish;p=2.0;sc=master} @self ~onDamaged
+  - sound{s=block.fire.extinguish;p=0.7;sc=master} @self ~onDeath ## Sound to make when killed ##
+  - sound{s=entity.shulker.death;p=0.8;sc=master} @self ~onDeath
+  - sound{s=entity.strider.death;p=0.85;sc=master} @self ~onDeath
+  - sound{s=block.campfire.crackle;p=1.7;sc=master;v=0.5} @self ~onTimer:5 ## A soft ambient sound for the mob ##
+  - sound{s=entity.llama.spit;p=1.65;sc=master;v=2} @self ~onShoot ## Sound to make when shooting fireballs ##
+  - sound{s=entity.phantom.flap;p=1.85;sc=master;v=2} @self ~onShoot
+  - sound{s=entity.zombie.infect;p=1.95;sc=master;v=2} @self ~onShoot
+  - skill{s=FlamethrowerRandomizer} @self ~onTimer:140 0.40 # #Every 140 ticks, there's a 40% chance for the mob to use the skill FlamethrowerRandomizer ##
+  - skill{s=FireDemonFlee} @self ~onShoot 0.5 ## Activates skill FireDemonFlee when it shoots fireballs 50% of the time ##
+  - skill{s=FireDemonFlee} @self ~onDamaged 0.6 ## Activates skill FireDemonFlee when damaged 60% of the time ##
+  - ignite{d=<random.100to120>} @trigger ~onAttack ## Sets whatever it melee hits on fire for 100-120 ticks (5 to 6 seconds) ##
+  - effect:particlesphere{p=reddust;c=#8a2b1a;a=2;hs=0.1;vs=0.1;r=0.25;y=0.25} @self ~onTimer:1 ## Ambient particles ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/skills/effects/particlesphere ##
+  - effect:particlesphere{p=reddust;c=#212121;a=1;hs=0.3;vs=1;r=0.3;y=0.25} @self ~onTimer:1 ## Ambient particles ## c = color in hex format, p = particle name, a = amount of particles, hs = horizontal spread, vs = vertical spread, r = radius, uel = useEyeLocation as starting point ##
+  - effect:particlesphere{p=smallflame;r=0.55;a=5;hs=0.1;vs=0.1;y=0.25} @self ~onTimer:1
+  - effect:particlesphere{p=flame;r=1;a=100;hs=0.1;vs=0.1;y=0.25} @self ~onDeath ## Particles displayed on death ##
+  Options: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options ##
+    PreventOtherDrops: true
+    FollowRange: 25
+    AlwaysShowName: false
+    Silent: true
+    NoDamageTicks: 6
+    MovementSpeed: 0.25
+    Despawn: true
+
+
+
+
+
+##################### WIND MAGE #################################
+# This mob uses a custom skinned player disguise, with a self   #
+# preservation skill, and a variable projectile skill. At this  #
+# point you should already know basic particle and sound        #
+# effects, and this mob layers them to make unique audio cues   #
+#################################################################
+
+windMage:
+  Type: VINDICATOR
+  Display: '<gradient:#ffef96:#e3ac88>Generic Wind Mage'
+  Disguise: windmage setCustomName "<gradient:#ffef96:#e3ac88>Generic Wind Mage" setCustomNameVisible true ## Make sure you set this up correctly by using "/savedisg windmage player windmage.png setDynamicName" in-game ##
+  Health: 20
+  Equipment: ## Using simple vanilla items that look like what a mage would use ##
+  - STICK HAND
+  - BOOK OFFHAND
+  - AIR HEAD
+  - AIR CHEST
+  - AIR LEGS
+  - AIR FEET
+  Damage: 3
+  DamageModifiers: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/DamageModifiers ##
+  - ENTITY_ATTACK 0.8
+  - PROJECTILE 0.5
+  - ENTITY_EXPLOSION 1.5
+  - BLOCK_EXPLOSION 1.5
+  - FIRE 1.0
+  - THORNS 0.0
+  - FALL 0.0
+  - CONTACT 0.0
+  - MAGIC 2.0
+  - ICE 0.1
+  Skills:
+  - extinguish{} @self ~onDamaged ## Its wind is strong enough to blow out flames, so it extinguishes itself, checking for fire every time its damaged. ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/extinguish ##
+  - skill{s=WindBallRandomizer} @self ~onTimer:55 0.33
+  - skill{s=WindBlastRandomizer} @self ~onDamaged 0.44
+  - sound{s=block.sand.break;p=0.7;sc=master;} @self ~onDamaged ## Sound effects for the mob ##
+  - sound{s=entity.player.hurt;p=1.3;sc=master;sync=true;v=1.15} @self ~onDamaged #
+  - sound{s=item.crop.plant;p=2.0;v=1.18;sc=master;sync=true} @self ~onDamaged #
+  - sound{s=block.candle.extinguish;p=0.8;v=2.0;sc=master;sync=true} @self ~onDamaged #
+  - sound{s=block.sand.place;p=0.66;v=0.88;sc=master;sync=true} @self ~onDamaged #
+  - sound{s=block.honey_block.place;p=2.0;v=0.46;sc=master;sync=true} @self ~onDamaged #
+  - sound{s=block.beehive.drop;p=1.22;v=1.22;sc=master;sync=true} @self ~onDamaged #
+  - sound{s=block.composter.ready;p=2.0;v=0.16;sc=master;sync=true} @self ~onDamaged #
+  - sound{s=block.coral_block.break;p=2.0;v=0.26;sc=master;sync=true} @self ~onDamaged #
+  - sound{s=block.frogspawn.hatch;p=2.0;v=0.82;sc=master;sync=true} @self ~onDamaged ## All these layered together make a nice organic hurt sound @@
+  - effect:particles{p=block;m=red_glazed_terracotta;y=1;a=<random.1to3>;hs=0.4;vs=0.1;s=0;y=1.5} @self ~onDamaged ## Bleed effect because the mob is fleshy ##
+  - effect:particles{p=block;m=red_nether_bricks;y=1;a=<random.1to2>;hs=0.4;vs=0.1;s=0;y=1.5} @self ~onDamaged # The effect is that of a block being broken ##
+  - effect:particles{p=block;m=nether_wart_block;y=1;a=<random.1to3>;hs=0.4;vs=0.1;s=0;y=1.5} @self ~onDamaged #
+  - effect:particles{p=block;m=weeping_vines;y=1;a=<random.20to50>;hs=0.55;vs=0.15;s=0;y=1.5} @self ~onDamaged #
+  - sound{s=block.azalea.step;p=2.0;sc=master;v=0.1} @self ~onTimer:1
+  - sound{s=block.fire.extinguish;p=0.7;sc=master} @self ~onDeath
+  - effect:particles{p=cloud;a=<random.1to5>;hs=0.3;vs=0.7;y=0.05} @self ~onTimer:1 ## Ambient particle effects for the mob ##
+  - effect:particlesphere{p=reddust;color=#ffffff;r=0.25;a=20;hs=0.2;vs=0.1;y=0.05} @self ~onTimer:1
+  - effect:particles{p=spit;a=<random.1to2>;hs=0.3;vs=0.1;y=0.05} @self ~onTimer:1 0.55
+  - potion{t=slow_falling;d=20;l=1;p=false} @self ~onTimer:20 ## Mob gives itself slow falling every 20 ticks ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/skills/mechanics/potion ##
+  Options: ## https://git.mythiccraft.io/mythiccraft/MythicMobs/-/wikis/Mobs/Options ##
+    PreventOtherDrops: true
+    FollowRange: 25
+    AlwaysShowName: true
+    Silent: true
+    MovementSpeed: 0.25
+    Despawn: true
+    NoDamageTicks: 6
+    PreventSunburn: true
+
+
+
+
+
+#                            ----+ BOSS +----                                  #
+
+## In this final section, we have the example boss included with the pack,    #
+# which just so happens to be based on me :3  Technically, there are separate #
+# mobs for each phase of the boss, which is how I structured it here, though  #
+# you could easily have the phases trigger when the boss reaches a certain    #
+# health level, or anything you can think of. The boss will demonstrate the   #
+# skills that the previous mobs already had, such as self preservation with   #
+# mobility, stances, orbital sword slices, custom projectiles, fighting at    #
+# both melee and at range, teleportation, potions, as well as new mechanics   #
+# including custom dialogue, a sort of uninterruptable cutscene, and the hide #
+# mechanic. Deconstructing this boss isn't for beginners, but it shouldn't be #
+# too difficult either. It uses techniques you've learned so far, like the    #
+# layering of sounds or attack cues, and just cranks the knob on them up.    ##
