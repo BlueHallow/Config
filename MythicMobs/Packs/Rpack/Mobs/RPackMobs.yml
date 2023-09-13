@@ -1,0 +1,1051 @@
+# 
+# These example files show you some of the basic attributes and
+# skills MythicMobs can use. Far more is possible!
+SkeletalSworder:
+  Type: SKELETON
+  Faction: Undead  
+  Display: '&cSkeleton swordsman'
+  Health: 10
+  Damage: 1
+  Equipment:
+  - leather_chestplate:3
+  - wood_sword:0
+  Drops:
+  - bone 2-5 1
+  Options:
+    MovementSpeed: 0.2
+    PreventRandomEquipment: true    
+  AITargetSelectors:
+  - 0 clear
+  - 1 hurtbytarget
+  - 2 players
+  - 3 specificfaction Avangard    
+LitSpir:
+  Type: BABYZOMBIE
+  Display: '&cSpirit of lightning'
+  Faction: Elemental  
+  Health: 3
+  Damage: 1
+  Equipment:
+  - LitSpirHead:4
+  Options:
+    MovementSpeed: 0.3
+    PreventRandomEquipment: true    
+    PreventOtherDrops: true
+    AlwaysShowName: true  
+  DamageModifiers:
+  - LIGHTNING 0
+  - FIRE 0.5
+  Skills:
+  - potion{type=INVISIBILITY;duration=1000;level=4} @self ~onTimer:10
+  - skill{s=Lithing} ~onTimer:60
+  - message{m="<mob.name><&co> &FО, one more could not resist my prediction..."} @PlayersInRadius{r=40} ~onPlayerKill
+  - message{m="<mob.name><&co> &FNow you are also pure energy!"} @PlayersInRadius{r=40} ~onPlayerKill
+  - summon{mob=LitSpir;amount=1;noise=5} @Self ~onPlayerKill
+  - effect:particles{particle=largesmoke;amount=3;hS=1;vS=1;speed=0.1} @self ~onTimer:10
+SkeletonVindicator:
+  Type: skeleton
+  Faction: Undead  
+  Display: '&cAvenger'
+  Health: 2
+  Damage: 1
+  Skills:
+  - skill{s=SmashAttack} @Target >0 0.2
+  Equipment:
+  - Diamond_Sword:0
+  - iron_chestplate:3
+  Drops:
+  - diamond 1-4 1
+  Options:
+    MovementSpeed: 0.2
+    MaxCombatDistance: 25
+    PreventRandomEquipment: true    
+    PreventOtherDrops: true
+  AITargetSelectors:
+  - 0 clear
+  - 1 hurtbytarget
+  - 2 players
+  - 3 specificfaction Avangard    
+Lich:
+  Type: SKELETON
+  Faction: Undead  
+  Modules:
+    ThreatTable: true
+  Disguise:
+    Type: WITHER_SKELETON
+  Display: '&cLich'
+  Health: 20
+  Damage: 1 
+  Skills:
+  - effect:particles{particle=largesmoke;amount=6;hS=0.01;vS=0.01;speed=0.05} @self ~onTimer:10 
+  - potion{type=INVISIBILITY;duration=1000;level=4} @self ~onTimer:10  
+  - skill{s=LichBolt} @target ~onTimer:50
+  - summon{mob=Filactory;amount=1;noise=1} @Self ~onDeath 
+  - message{m="&FRazushte &cPhylactic Lich, &fto defeat the lich forever!"} @PlayersInRadius{r=40} ~onDeath
+  Options:
+    MovementSpeed: 0.1
+    FollowRange: 50   
+    PreventRandomEquipment: true    
+    PreventOtherDrops: true
+    AlwaysShowName: true      
+  AITargetSelectors:
+  - 0 clear
+  - 1 hurtbytarget
+  - 2 players
+  - 3 specificfaction Avangard
+  Equipment:
+  - iron_hoe:0
+  - Lichhead:4
+  - BanditTunic:3
+Filactory:
+  Type: Skeleton
+  Health: 10
+  Faction: Undead 
+  Damage: 0
+  Disguise:
+    Type: BLOCK
+    Block: IRON_BLOCK
+    BlockData: 0
+    ShowName: true
+  Display: '&cLich phylactery'
+  Equipment:
+  - Lichhead:4  
+  Drops:
+  - Lich
+  Options:
+    MovementSpeed: 0.001
+    KnockbackResistance: 400    
+    PreventRandomEquipment: true    
+    PreventOtherDrops: true    
+  Skills:
+  - skill{s=Filactory} @self onTimer:20
+MountCreeper:
+  Type: VINDICATOR
+  Health: 50
+  Damage: 1
+  Disguise:
+    Type: creeper
+  Display: '&cCreeper'
+  AITargetSelectors:
+  - 0 clear
+  - 1 hurtbytarget
+  - 2 players  
+  Options:
+    MovementSpeed: 0.3   
+    PreventOtherDrops: true   
+  Skills:
+  - skill{s=MountCreeper} onTimer:130
+  - suicide =25
+  - effect:explosion @Self ~onDeath
+  - throw{velocity=10;velocityY=5} @PlayersInRadius{r=5} ~onDeath
+CreeperMounter:  
+  Type: VINDICATOR
+  Health: 30
+  Damage: 3
+  Disguise:
+    Type: Player
+    Player: '&cKnight Creeper'
+    Skin: omgcraft
+  Display: '&cCreeper raider'
+  AITargetSelectors:
+  - 0 clear
+  - 1 hurtbytarget
+  - 2 players  
+  Options:
+    MovementSpeed: 0.3   
+    PreventOtherDrops: true   
+    PreventRandomEquipment: true    
+  Equipment:
+  - iron_Sword:0    
+  Mount: MountCreeper
+VoidPriest:
+  Type: BABYZOMBIE
+  Faction: Void   
+  Health: 50
+  Damage: 1
+  Disguise:
+    Type: Player
+    Player: '&cPriest of the void'
+    Skin: K_Sleazy195
+  Display: '&cPriest of the void'
+  AITargetSelectors:
+  - 0 clear
+  - 1 hurtbytarget
+  - 2 players    
+  Options:
+    MovementSpeed: 0.2   
+    PreventRandomEquipment: true    
+    PreventOtherDrops: true   
+    RepeatAllSkills: false
+  Skills:
+  - skill{s=VoidPriest} onTimer:1000
+VoidDemon:
+  Type: VINDICATOR
+  Health: 40
+  Faction: Void  
+  Damage: 3
+  Disguise:
+    Type: Player
+    Player: '&cDemon of emptiness'
+    Skin: DjinnLord69
+  Display: '&cDemon of emptiness'
+  AITargetSelectors:
+  - 0 clear
+  - 1 hurtbytarget
+  - 2 players  
+  Options:
+    MovementSpeed: 0.3  
+    PreventRandomEquipment: true    
+    PreventOtherDrops: true 
+  Skills:
+  - summon{mob=VoidPool;amount=3;noise=6} @Self ~onTimer:30 
+VoidPool:
+  Type: BABYZOMBIE
+  Health: 100
+  Damage: 1
+  Faction: Void_creature
+  Disguise:
+    Type: BLOCK
+    Block: STAINED_GLASS
+    BlockData: 10
+    ShowName: true
+  Display: '&cFunnel void'
+  AITargetSelectors:
+  - 0 clear
+  - 1 hurtbytarget
+  - 2 players  
+  - 3 otherfactionmonsters
+  Options:
+    MovementSpeed: 0.001  
+    PreventOtherDrops: true 
+    PreventRandomEquipment: true    
+    RepeatAllSkills: false
+  Skills:
+  - skill{s=VoidPool} @target onTimer:20
+Driada:
+  Type: VINDICATOR
+  Faction: Forest
+  Health: 20
+  Damage: 2
+  Disguise:
+    Type: Player
+    Player: '&eDryad'
+    Skin: RedstoneBattery
+  Display: '&eDryad'
+  AITargetSelectors:
+  - 0 clear
+  - 1 hurtbytarget
+  - 2 specificfaction Undead
+  - 3 specificfaction Void
+  Equipment:
+  - stick:0 
+  Options:
+    MovementSpeed: 0.3  
+    PreventRandomEquipment: true    
+    PreventOtherDrops: true 
+  Skills:
+  - effect:particles{particle=happyVillager;amount=6;hS=0.01;vS=0.01;speed=0.05} @self ~onTimer:10  
+DeathKnight: 
+  Type: baby_zombie
+  Faction: Undead 
+  Display: '&cDeath Knight'
+  Health: 30
+  Damage: 1
+  Disguise:
+    Type: Player
+    Player: '&cDeath Knight'
+    Skin: sirkevin702
+  Options:
+    MovementSpeed: 0.2
+    PreventRandomEquipment: true    
+    PreventOtherDrops: true     
+  Equipment:
+  - iron_Sword:0     
+  Skills:
+  - effect:particles{particle=depthsuspend;amount=12;hS=1;vS=1;speed=0.005} @self ~onTimer:10   
+  AITargetSelectors:
+  - 0 clear
+  - 1 hurtbytarget
+  - 2 players  
+  - 3 specificfaction Avangard
+  Mount: DeathKnightHourse  
+DeathKnightHourse:
+  Type: baby_zombie
+  Faction: Undead 
+  Display: '&cРыцарь Смерти'
+  Health: 10
+  Damage: 1
+  Disguise:
+    Type: SKELETON_HORSE 
+  Options:
+    PreventRandomEquipment: true  
+    MovementSpeed: 0.23
+  Skills:
+  - effect:particles{particle=depthsuspend;amount=12;hS=1;vS=1;speed=0.005} @self ~onTimer:10
+  AITargetSelectors:
+  - 0 clear
+  - 1 hurtbytarget
+  - 2 players
+  - 3 specificfaction Avangard
+Paladin:
+  Type: VINDICATOR
+  Faction: Avangard 
+  Display: '&ePaladin'
+  Disguise:
+    Type: Player
+    Player: '&ePaladin'
+    Skin: Ragnharok
+  Health: 25
+  Damage: 3
+  Options:
+    PreventRandomEquipment: true  
+    MovementSpeed: 0.15     
+    PreventOtherDrops: true     
+  Skills:
+  - skill{s=MountCreeper} onTimer:140
+  AITargetSelectors:
+  - 0 clear
+  - 1 hurtbytarget
+  - 2 specificfaction Undead
+  - 3 specificfaction Void  
+AvangardMage:
+  Type: skeleton
+  Faction: Avangard 
+  Display: '&eMage of Avant-garde'
+  Disguise:
+    Type: Player
+    Player: '&eMage of Avant-garde'
+    Skin: benjmob1
+  Health: 10
+  Damage: 1
+  Options:
+    PreventRandomEquipment: true  
+    MovementSpeed: 0.2
+    PreventOtherDrops: true     
+  Equipment:
+  - head1:4
+  - STONE_SPADE:0
+  Skills:
+  - skill{s=MagicShoot} @target onTimer:40
+  AITargetSelectors:
+  - 0 clear
+  - 1 hurtbytarget
+  - 2 specificfaction Undead
+  - 3 specificfaction Void   
+AvangardTank:
+  Type: VINDICATOR
+  Faction: Avangard 
+  Display: '&eTank avant-garde'
+  Disguise:
+    Type: Player
+    Player: '&eTank avant-garde'
+    Skin: IGuardian
+  Health: 50
+  Damage: 1
+  Options:
+    PreventRandomEquipment: true  
+    MovementSpeed: 0.15
+    PreventOtherDrops: true     
+  Equipment:
+  - GOLD_AXE:0
+  - shield:5
+  AITargetSelectors:
+  - 0 clear
+  - 1 hurtbytarget
+  - 2 specificfaction Undead
+  - 3 specificfaction Void     
+PiroSkeleton:
+  Type: SKELETON
+  Faction: Undead   
+  Display: '&cSkeleton Fire Magician'
+  Health: 10
+  Damage: 1
+  Drops:
+  - bone 1-2 1
+  - coal 1-3 0.5
+  - 397 1 0.25
+  Equipment:
+  - stick:0  
+  Skills:
+  - skill{s=SingleTargetFireEASY} @target ~onTimer:200
+  - skill{s=AOEFireEASY} @self ~onTimer:300
+  Options:
+    FollowRange: 30
+    PreventRandomEquipment: true    
+    Movements: 0.01
+    PreventOtherDrops: true  
+AdwSkeleton:
+  Type: SKELETON
+  Display: '&cSkeleton Hunter'
+  Health: 15
+  Damage: 2
+  Faction: Undead 
+  Drops:
+  - bone 1-2 1
+  - arrow 4-8 0.5
+  - 397 1 0.25
+  Equipment:
+  - iron_helmet:4  
+  Skills:
+  - skill{s=CrushingLeap} @target ~onTimer:150
+  Options:
+    PreventRandomEquipment: true  
+    FollowRange: 30
+    Movements: 0.01
+    PreventOtherDrops: true    
+BurningBones:
+  Faction: Undead 
+  Type: SKELETON
+  Display: '&cBurning Bones'
+  Health: 20
+  Damage: 1
+  Equipment:
+  - blaze_powder:0     
+  Drops:
+  - bone 1-2 1
+  - blaze_powder 1-2 0.5
+  - 397 1 0.1
+  Skills:
+  - skill{s=Bash} @target ~onTimer:130
+  - effect:itemspray{item=blaze_powder;amount=5;velocity=1;d=20;} @self ~onDamaged 
+  - effect:flames @self ~onTimer:5 
+  - potion{type=FIRE_RESISTANCE;duration=1000;level=4} @self ~onTimer:10 
+  - ignite{d=30;} @self ~onTimer:10 
+  - skill{s=SingleTargetFireEASY} @target ~onTimer:200  
+  Options:
+    PreventRandomEquipment: true  
+    FollowRange: 30
+    Movements: 0.01
+    PreventOtherDrops: true     
+VoidReaper: 
+  Type: VINDICATOR
+  Faction: Void
+  Display: '&cNether Reaper'
+  Health: 30
+  Damage: 1
+  Disguise:
+    Type: Player
+    Player: '&cNether Reaper'
+    Skin: LavacraftAmin
+  Options:
+    MovementSpeed: 0.1
+    KnockbackResistance: 4  
+    PreventRandomEquipment: true    
+    PreventOtherDrops: true      
+  Modules:
+    ThreatTable: true    
+  Equipment:
+  - gold_hoe:0     
+  Skills:
+  - skill{s=AOERandomSpell} ~onTimer:200
+  - effect:particles{particle=portal;amount=20;hS=1;vS=1;speed=0.005} @self ~onTimer:10
+DarkMancer: 
+  Type: VINDICATOR
+  Faction: Undead
+  Display: '&cManser of Darkness'
+  Health: 10
+  Damage: 1
+  Disguise:
+    Type: Player
+    Player: '&cManser of Darkness'
+    Skin: Neonyx
+  Options:
+    PreventRandomEquipment: true  
+    MovementSpeed: 0.1
+    KnockbackResistance: 4  
+    PreventOtherDrops: true      
+  Modules:
+    ThreatTable: true    
+  Equipment:
+  - skull:0     
+  Skills:
+  - skill{s=DarkArrow} @target ~onTimer:100
+  - effect:particles{particle=smoke;amount=20;hS=0.1;vS=1;speed=0.005} @self ~onTimer:10  
+VW1: 
+  Type: VINDICATOR
+  Faction: Void  
+  Display: '&cVoid Warrior'
+  Health: 12
+  Damage: 2
+  Disguise:
+    Type: Player
+    Player: '&cVoid Warrior'
+    Skin: Kofix
+  Drops:
+  - void_e 1 0.25
+  - 371:0 1-5 0.5
+  - iron_Sword 1 0.03   
+  Options:
+    MovementSpeed: 0.2
+    PreventRandomEquipment: true    
+    KnockbackResistance: 1  
+    PreventOtherDrops: true      
+  Modules:
+    ThreatTable: true    
+  Equipment:
+  - Iron_sword:0     
+VW2:  
+  Type: VINDICATOR
+  Faction: Void  
+  Display: '&cVoid Mage'
+  Health: 10
+  Damage: 1
+  Drops:
+  - void_e 1 0.25
+  - 371:0 1-5 0.5
+  - 452:0 1-7 0.05     
+  Disguise:
+    Type: Player
+    Player: '&cVoid Mage'
+    Skin: Neonisfunny
+  Options:
+    PreventRandomEquipment: true  
+    MovementSpeed: 0.1
+    KnockbackResistance: 1  
+    PreventOtherDrops: true      
+  Modules:
+    ThreatTable: true    
+  Skills:  
+  - skill{s=DarkArrow} @target ~onTimer:150  
+VW3:  
+  Type: VINDICATOR
+  Faction: Void  
+  Display: '&cVoid Assassin'
+  Health: 15
+  Damage: 1
+  Disguise:
+    Type: Player
+    Player: '&cVoid Assassin'
+    Skin: VoidingNixx
+  Drops:
+  - void_e 1 0.25
+  - 371:0 1-5 0.5
+  - 452:0 1-7 0.05      
+  Options:
+    PreventRandomEquipment: true  
+    MovementSpeed: 0.2
+    KnockbackResistance: 0  
+    PreventOtherDrops: true      
+  Modules:
+    ThreatTable: true    
+  Skills:  
+  - potion{type=SLOW;duration=100;level=2} @target ~onTimer:200   
+  Equipment:
+  - stone_sword:0
+  - stone_sword:5  
+VW4:  
+  Type: VINDICATOR
+  Faction: Void  
+  Display: '&cNether Golemer'
+  Health: 20
+  Damage: 1
+  Disguise:
+    Type: Player
+    Player: '&cNether Golemer'
+    Skin: skullcrusher803
+  Options:
+    PreventRandomEquipment: true  
+    MovementSpeed: 0.2
+    KnockbackResistance: 0  
+    PreventOtherDrops: true      
+  Modules:
+    ThreatTable: true    
+  Skills:  
+  - skill{s=VoidSummoner} @target ~onTimer:200
+  Equipment:
+  - stone_spade:0
+DemonicGolem:  
+  Type: VINDICATOR
+  Faction: Void  
+  Display: '&cFel Golem'
+  Health: 5
+  Damage: 2
+  Disguise:
+    Type: Player
+    Player: '&cFel Golem'
+    Skin: lord_joel
+  Options:
+    PreventRandomEquipment: true  
+    MovementSpeed: 0.25
+    KnockbackResistance: 0  
+    PreventOtherDrops: true  
+  Modules:
+    ThreatTable: true
+  Skills:
+  - suicide @self onTimer:150  
+SandSpirit:
+  Type: VINDICATOR
+  Faction: Elemental
+  Display: '&cDesert buran'
+  Health: 5
+  Damage: 2
+  Disguise:
+    Type: skeletone
+    Invisible: true
+    ShowName: true  
+    Skin: lord_joel    
+    Type: Player
+    Player: '&cDesert buran'
+  Equipment:
+  - SSHEAD:4    
+  Options:
+    PreventRandomEquipment: true  
+    MovementSpeed: 0.25
+    KnockbackResistance: 0  
+    PreventOtherDrops: true  
+  Modules:
+    ThreatTable: true
+  Skills:
+  - effect:particles{p=reddust;color=#F6DFB3;amount=200;hS=0.5;vS=1.6;speed=20} @self ~onTimer:10  
+  - effect:itemspray{item=sand;amount=1;velocity=2;d=30;ap=true} @self ~onDamaged
+Husk1:
+  Type: Husk
+  Faction: Undead
+  Display: '&cPurulent Cadaver'
+  Health: 30
+  Damage: 1
+  Options:
+    PreventRandomEquipment: true  
+    MovementSpeed: 0.2
+    KnockbackResistance: 0  
+    PreventOtherDrops: true  
+  Modules:
+    ThreatTable: true
+  Skills:
+  - effect:particles{particle=blockcrack_12_0;amount=200;hS=0.3;vS=1;speed=20} @self ~onTimer:10
+  - skill{s=PlagueWarms} ~onDeath
+PlagueWarms:  
+  Type: baby_zombie
+  Faction: Insect
+  Display: '&cPurulent Worm'
+  Disguise:
+    Type: endermite
+  Health: 1
+  Damage: 1
+  Options:
+    PreventRandomEquipment: true  
+    MovementSpeed: 0.3
+    KnockbackResistance: 0  
+    PreventOtherDrops: true  
+  Modules:
+    ThreatTable: true
+  Skills:
+  - effect:particles{p=reddust;color=#800000;amount=10;hS=0.3;vS=1;speed=20} @self ~onTimer:10
+Sniper:
+  Type: VINDICATOR
+  Faction: Bandit
+  Display: '&cBandit'
+  Skills:
+  - arrowvolley{a=1;s=1;v=25;rd=200} @Target ~onTimer:100
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.1
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true  
+  Equipment:
+  - bow:0  
+  Disguise:  
+    Skin: SniperCreeper98
+    Type: Player
+    Player: '&cBandit'  
+Shooter:
+  Type: VINDICATOR
+  Faction: Bandit
+  Display: '&cThug'
+  Health: 25
+  Damage: 1
+  Skills:
+  - skill{s=ShooterDubleShoot} @target ~onTimer:50
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.25
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true  
+  Equipment:
+  - iron_Sword:0  
+  Disguise:  
+    Skin: Assasin876
+    Type: Player
+    Player: '&cThug'  
+DesertAssasin:
+  Type: VINDICATOR
+  Faction: Bandit
+  Display: '&cAssassin of the Desert'
+  Health: 20
+  Damage: 3
+  Skills:
+  - skill{s=AssasinLeap} ~onTimer:100
+  Options:
+    FollowRange: 100
+    MovementSpeed: 0.25
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true  
+  Equipment:
+  - iron_Sword:0
+  - Iron_sword:5  
+  Disguise:  
+    Skin: AssasinTan
+    Type: Player
+    Player: '&cAssassin of the Desert'  
+Warlock:
+  Type: VINDICATOR
+  Faction: Demon
+  Display: '&cWarlock'
+  Health: 15
+  Damage: 1
+  Skills:
+  - skill{s=WitchBolt} @Target ~onTimer:70
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.15
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true  
+  Disguise:  
+    Skin: warlocker101
+    Type: Player
+    Player: '&cWarlock'    
+SnowElemental: 
+  Type: Vindicator
+  Faction: Elemental
+  Display: '&cIce Elemental'
+  Health: 30
+  Damage: 1
+  Skills:
+  - effect:blockmask{m=ice;r=3;d=100;s=sphere;n=3} @self ~onTimer:20
+  - effect:particles{particle=fireworksSpark;amount=150;hS=0.1;vS=0.1;speed=1} @self ~onDeath
+  - damage{a=2;ignorearmor=false;} @LIR{15} ~onDeath  
+  - effect:particles{p=reddust;color=#aee1ff;amount=50;hS=0.4;vS=2;speed=20} @self ~onTimer:10
+  - effect:particles{p=reddust;color=#cfdfea;amount=50;hS=0.4;vS=2;speed=20} @self ~onTimer:10  
+  - skill{s=IceElementalHandThrow} @Target ~onTimer:300
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.3
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true  
+  Disguise:  
+    Type: WITHER_SKELETON
+    Invisible: true 
+  Equipment:
+  - head3:4  
+  - first:0
+  - first:5
+SnowElementalHand1:
+  Type: BABYZOMBIE
+  Faction: Elemental
+  Display: '&cIce Elemental Hand'
+  Health: 1
+  Damage: 5
+  Skills:
+  - suicide ~onAttack
+  - equip{item=first:0} @Parent ~onDeath  
+  - effect:particles{p=reddust;color=#aee1ff;amount=50;hS=0.4;vS=2;speed=20} @self ~onTimer:10 
+  Options:
+    FollowRange: 100
+    MovementSpeed: 0.4
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true  
+  Equipment:
+  - PACKED_ICE:4  
+  Disguise:  
+    Type: BABYZOMBIE
+    Invisible: true 
+SnowElementalHand2:
+  Type: BABYZOMBIE
+  Faction: Elemental
+  Display: '&cIce Elemental Hand'
+  Health: 1
+  Damage: 5
+  Skills:
+  - suicide @self ~onAttack
+  - equip{item=first:5} @Parent ~onDeath
+  - effect:particles{p=reddust;color=#aee1ff;amount=50;hS=0.4;vS=2;speed=20} @self ~onTimer:10 
+  Options:
+    FollowRange: 100
+    MovementSpeed: 0.4
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true  
+  Equipment:
+  - PACKED_ICE:4  
+  Disguise:  
+    Type: BABYZOMBIE
+    Invisible: true 
+QuiteKiller:
+  Type: VINDICATOR
+  Faction: Bandit
+  Display: '&cSilent Slayer'
+  Health: 25
+  Damage: 1
+  Skills:
+  - skill{s=bladethrow} @target ~onTimer:50
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.25
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true  
+  Equipment:
+  - iron_Sword:0  
+  Disguise:  
+    Skin: Girl507
+    Type: Player
+    Player: '&cSilent Slayer'    
+Ashrana:
+  Type: VINDICATOR
+  Faction: MoonPrincess
+  Display: '&cAshrana'
+  Health: 2000
+  Damage: 3
+  BossBar:
+    Enabled: true
+    Title: '&cAshrana'
+    Range: 50
+    Color: RED
+    Style: SEGMENTED_12      
+  Skills:
+  - skill{s=MoonLedyRandomSkill} ~onTimer:300
+  - skill{s=MoonLightSummon} @self ~onTimer:1000
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.15
+    KnockbackResistance: 10
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true    
+  Disguise:  
+    Skin: DeathAngel2552
+    Type: Player
+    Player: '&cAshrana'    
+MoonMaid:
+  Type: VINDICATOR
+  Faction: MoonPrincess
+  Display: '&cMoon Slave'
+  Health: 10
+  Damage: 1
+  Skills:
+  - effect:particles{p=reddust;c=#8410ff;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10
+  - effect:particles{p=reddust;c=#b67df2;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10 
+  - effect:particles{p=reddust;c=#c6e2ff;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.25
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true  
+  Equipment:
+  - Wheat:0  
+  Disguise:  
+    Skin: glowgirl5
+    Type: Player
+    Player: '&cMoon Slave'   
+MoonLight: 
+  Type: BABYZOMBIE
+  Faction: MoonPrincess
+  Display: '&cMoonlight'
+  Health: 1000
+  Damage: 1
+  Skills:
+  - effect:particles{p=reddust;c=#8410ff;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10
+  - effect:particles{p=reddust;c=#b67df2;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10 
+  - skill{s=MoonLedyMoonLight} @self ~onSpawn  
+  - effect:particles{p=reddust;c=#c6e2ff;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.01
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true  
+  Disguise:  
+    Type: ARMOR_STAND
+    Invisible: true 
+MoonFamiliar:
+  Type: VINDICATOR
+  Faction: MoonPrincess
+  Display: '&cThe lost'
+  Health: 1
+  Damage: 3 
+  Skills:
+  - suicide @self ~onTimer:150
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.3
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true  
+  Equipment:
+  - Stone_sword:0  
+  Disguise:  
+    Skin: Magicallfail
+    Type: Player
+    Player: '&cThe lost'   
+MoonMage:
+  Type: VINDICATOR
+  Faction: MoonPrincess
+  Display: '&cMoons wizard'
+  Health: 30
+  Damage: 1
+  Skills:
+  - effect:particles{p=reddust;c=#8410ff;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10
+  - skill{s=MoonMageRandomSkill} ~onTimer:300
+  - effect:particles{p=reddust;c=#b67df2;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10 
+  - effect:particles{p=reddust;c=#c6e2ff;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.15
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true  
+  Equipment:
+  - Blaze_rod:0  
+  Disguise:  
+    Skin: MagicDemonWolf
+    Type: Player
+    Player: '&cMoons wizard'   
+MoonGuard:
+  Type: VINDICATOR
+  Faction: MoonPrincess
+  Display: '&cLunar Sentinel'
+  Health: 100
+  Damage: 1
+  Skills:
+  - throw{v=5;vy=5} @target ~onAttack 0.5  
+  - effect:particles{p=reddust;c=#8410ff;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10
+  - effect:particles{p=reddust;c=#b67df2;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10 
+  - effect:particles{p=reddust;c=#c6e2ff;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.15
+    KnockbackResistance: 10
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true  
+  Equipment:
+  - Diamond_Sword:0  
+  Disguise:  
+    Skin: RoboterTx3
+    Type: Player
+    Player: '&cLunar Sentinel'   
+MoonPrisoner:
+  Type: VINDICATOR
+  Faction: MoonPrincess
+  Display: '&cSlave owner'
+  Health: 40
+  Damage: 1
+  Skills:
+  - summon{mob=MoonMaid;amount=4;noise=4} @Self ~onTimer:500
+  - effect:particles{p=reddust;c=#8410ff;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10
+  - effect:particles{p=reddust;c=#b67df2;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10 
+  - effect:particles{p=reddust;c=#c6e2ff;a=3;hS=0.5;vS=0.5;s=1} @self ~onTimer:10
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.25
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true  
+  Equipment:
+  - iron_hoe:0
+  Disguise:  
+    Skin: CrystalQuarry
+    Type: Player
+    Player: '&cSlave owner'   
+Destroyer:
+  Type: VINDICATOR
+  Faction: Robot
+  Display: '&cSlave owner'
+  Health: 90
+  Damage: 3
+  Skills:
+  - throw{v=5;vy=5} @target ~onAttack 0.5
+  - skill{s=RobotLeap} @targetlocation ~onTimer:200
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.2
+    KnockbackResistance: 10
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true    
+  Disguise:  
+    Skin: RoboterTx3
+    Type: 
+ss:
+  Type: RABBIT
+  Faction: Animal
+  Display: '&cEmpty snowstorm'
+  Health: 1
+  Damage: 1
+  Skills:
+  - summon{mob=SandSpirit;amount=1} @Self ~onSpawn
+  - suicide ~onTimer:30
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.2
+    KnockbackResistance: 10
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true    
+DesertBunny:
+  Type: RABBIT
+  Faction: Animal
+  Display: '&cEmpty snowstorm'
+  Health: 1
+  Damage: 1
+  Skills:
+  Options:
+    AlwaysShowName: true
+    FollowRange: 100
+    MovementSpeed: 0.2
+    KnockbackResistance: 10
+    Collidable: true
+    PreventRandomEquipment: true
+    PreventItemPickup: true
+    PreventOtherDrops: true      
+      
+    
+    
+    
+    
+     
+
+    
+  
+  
+  
+
+  

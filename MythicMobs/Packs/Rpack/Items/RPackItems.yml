@@ -1,0 +1,125 @@
+LitSpirHead:
+  Id: 397
+  Data: 3
+  Display: 'gyf'
+  Options:
+    Player: ShadicSatan
+Lichhead:
+  Id: 397
+  Data: 3
+  Display: 'gyf'
+  Options:
+    SkinTexture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWY2NTYzN2UyNzg2OGFkNzZkOTk1ZTMyZmUzYTkyNmM3ZmUxZGZhNTEzOTgyMTM3NWE4OGIwZTlkZmU0ZCJ9fX0=
+head1:
+  Id: 397
+  Data: 3
+  Display: 'gyf'
+  Options:
+    Player: benjmob1    
+void_e:
+  Id: 318
+  Display: '&fEssence of emptiness' 
+  Lore:
+  - '&6Можно найти у жителей пустоты'
+SSHEAD:  
+  Id: 397
+  Data: 3
+  Display: 'gyf'
+  Options:
+    SkinTexture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzc5ODY5NTM4ODdjN2VmNDhlZTI0NGJhODNiOGM3NjBjOWU2ZWJkODIxYWY1ODFjYjNlNjJhYTUzOTM0ODgifX19
+JDK:
+  Id: 417
+  Display: 'gyf'
+gdk:
+  Id: 267
+  Display: 'gyf'
+RifleClip:
+  Id: 362
+  Display: '&FBullet'
+  Lore:
+  - '&7Suitable for: '
+  - '&fPistol&7,'
+  - '&fMusket&7.'  
+Rifle:
+  Id: 417
+  Display: '&FMusket'
+  Lore:
+  - ""
+  - "&aPKM-&7shot, &bLKM-&7recharge"  
+  - "&7Store capacity - 1"   
+  - "&7Ammunition 1 / 1"
+  Resource: Ammo  
+  Ammo: 
+    Enabled: TRUE
+    Bullet: RifleClip
+    ClipSize: 1
+    AmmoPerItem: 1  
+  Skills:
+  - skill{s=RiflShot} @TargetLocation ~onUse
+  - AmmoLoad self ~onSwing
+CrossBow:
+  Id: 417
+  Display: '&b12-Barrel Crossbow'
+  Skills:
+  - skill{s=CrossBowShoot} @TargetLocation ~onUse  
+AssasinSword:
+  Id: 267
+  Display: '&FAssassins Blade'
+  Skills:
+  - skill{s=AssasinLeapP} @TargetLocation ~onUse   
+head3:
+  Id: 397
+  Data: 3
+  Display: 'gyf'
+  Options:
+    Player: Frost1278    
+first:   
+  Id: 174
+  Display: 'ice' 
+void:
+  Id: 351
+  Data: 12
+  Display: 'ice'  
+shdBow:
+  Id: BOW
+  Display: '&FShadow bow'
+  Skills:
+  - potion{t=SLOW;d=100;l=3} @TargetLocation ~onBowHit  
+  - skill{s=LichBolt} @TargetLocation ~onShoot
+GrowseekerH:
+ Id: 397
+ Data: 3
+ Options:
+    SkinTexture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGFhOGZjOGRlNjQxN2I0OGQ0OGM4MGI0NDNjZjUzMjZlM2Q5ZGE0ZGJlOWIyNWZjZDQ5NTQ5ZDk2MTY4ZmMwIn19fQ==
+
+MowseekerH:
+ Id: 397
+ Data: 3
+ Options:
+    SkinTexture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDU1NTYwODNjOWNkZTE5ZjU0YmY3OGE0MjFjYjk3MzFmNjBmMWQzZGUzY2Y1ODRmNTRiMmQ0MzY3N2RmMmE3In19fQ==
+    
+GlowseekerH:
+ Id: 397
+ Data: 3
+ Options:
+    SkinTexture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTZmYTRlYmU3ODVkNDk1MTRmNzUxY2ZjNmJmM2VmYTQxODkzOTY0MjU3NWVkNjBlY2M2YjIxMmE3MjY0M2I4In19fQ==
+HellBow:
+  Id: 417
+  Display: '&b156-Barrel Crossbow'
+  Skills:
+  - skill{s=HellBowShoot} @TargetLocation ~onUse   
+HookBlade:
+  Id: Iron_Sword
+  Display: '&dHook knife'
+  Skills:
+  - potion{t=SLOW;d=100;l=3} @Target ~onAttack
+FBS:  
+  Id: Stick
+  Display: '&dStick mystic'
+  Skills:
+  - skill{s=FireBall} @TargetLocation ~onUse  
+  
+    
+  
+
+  

@@ -1,0 +1,542 @@
+# 
+# These example files show you some VERY basic meta skills.
+# You can copy and expand them however you'd like.
+SmashAttack:
+  Cooldown: 8
+  Conditions:
+  - targetwithin 25
+  Skills:
+  - message{cooldown=30;m="<mob.name><&co> Hahahah! I will crush you, fool!"} @PlayersInRadius{r=40}
+  - teleport @target
+  - effect:sound{s=mob.endermen.portal;volume=1.0;pitch=0.5}
+  - delay 10
+  - damage{amount=5;ignorearmor=true} @PlayersInRadius{r=5}
+  - throw{velocity=10;velocityY=5} @PlayersInRadius{r=5}
+  - effect:explosion @Self
+Lithing:
+  Conditions:
+  - targetwithin 10 
+  Skills:  
+  - lightning @LivingInRadius{r=10}
+  - damage{a=2;ignorearmor=false;} @LivingInRadius{r=10} 
+Filactory:
+  Cooldown: 1000  
+  Skills:
+  - message{m="&cPhylactic Lich &fbegan to resurrect its owner!"} @PlayersInRadius{r=40}
+  - message{m="&fbreak it before it's too late"} @PlayersInRadius{r=40}
+  - effect:particles{particle=largesmoke;amount=1;hS=0.01;vS=0.01;speed=0.05} @self
+  - delay 20
+  - effect:particles{particle=largesmoke;amount=2;hS=0.01;vS=0.01;speed=0.06} @self 
+  - delay 20
+  - effect:particles{particle=largesmoke;amount=3;hS=0.01;vS=0.01;speed=0.07} @self
+  - delay 10
+  - effect:particles{particle=largesmoke;amount=4;hS=0.01;vS=0.01;speed=0.08} @self
+  - delay 20
+  - effect:particles{particle=largesmoke;amount=5;hS=0.01;vS=0.01;speed=0.09} @self
+  - delay 20
+  - effect:spin{duration=100;velocity=20} @self
+  - effect:particles{particle=largesmoke;amount=5;hS=0.01;vS=0.01;speed=0.09} @self
+  - effect:particles{particle=largesmoke;amount=5;hS=0.01;vS=0.01;speed=0.09} @self
+  - effect:particles{particle=largesmoke;amount=5;hS=0.01;vS=0.01;speed=0.09} @self
+  - summon{mob=Lich;amount=1;noise=5} @Self 
+  - remove @self
+MountCreeper:  
+  Skills: 
+  - potion{type=SPEED;lvl=2;duration=40} @Self
+  - delay 40
+  - damage{amount=5} @PlayersInRadius{r=2}
+VoidPriest:
+  Cooldown: 15000
+  Conditions:
+  - targetwithin 40 
+  Skills:
+  - message{m="<mob.name><&co> &FEmptiness, hear my call!"} @PlayersInRadius{r=40}
+  - delay 40  
+  - message{m="<mob.name><&co> &Faccept me!"} @PlayersInRadius{r=40}
+  - delay 40  
+  - message{m="<mob.name><&co> &FI feel the power..."} @PlayersInRadius{r=40} 
+  - effect:particles{particle=portal;amount=3;hS=1;vS=1;speed=0.1} @self
+  - delay 10 
+  - effect:particles{particle=portal;amount=6;hS=1;vS=1;speed=0.1} @self
+  - delay 10
+  - effect:particles{particle=portal;amount=9;hS=1;vS=1;speed=0.1} @self
+  - delay 10  
+  - effect:particles{particle=portal;amount=12;hS=1;vS=1;speed=0.1} @self
+  - delay 10    
+  - message{m="<mob.name><&co> &FАААА! Больно!!!!"} @PlayersInRadius{r=40}
+  - potion{t=LEVITATION;d=70;l=1} @self
+  - delay 10
+  - effect:particlesphere{particle=portal;amount=200;radius=3} @self
+  - delay 10
+  - effect:particlesphere{particle=portal;amount=300;radius=3} @self
+  - delay 10
+  - effect:particlesphere{particle=portal;amount=400;radius=3} @self
+  - delay 10  
+  - effect:particlering{particle=portal;amount=200;radius=5} @self    
+  - delay 10  
+  - effect:particlering{particle=portal;amount=300;radius=6} @self
+  - delay 10  
+  - effect:particlering{particle=portal;amount=400;radius=7} @self  
+  - delay 10 
+  - effect:explosion @self
+  - summon{mob=VoidDemon;amount=1;noise=5} @Self  
+  - remove @self
+VoidPool:
+  Skills:
+  - effect:particlering{particle=portal;amount=400;radius=5} @self
+  - potion{t=BLINDNESS;d=60;l=1} @LivingInRadius{R=5}
+  - potion{t=SLOW;d=60;l=1} @LivingInRadius{R=5}
+  - delay 10
+  - effect:particlering{particle=portal;amount=400;radius=5} @self
+  - potion{t=BLINDNESS;d=60;l=1} @LivingInRadius{R=5}
+  - potion{t=SLOW;d=60;l=1} @LivingInRadius{R=5}
+  - delay 10
+  - effect:particlering{particle=portal;amount=400;radius=5} @self
+  - potion{t=BLINDNESS;d=60;l=1} @LivingInRadius{R=5}
+  - potion{t=SLOW;d=60;l=1} @LivingInRadius{R=5}
+  - delay 10
+  - effect:particlering{particle=portal;amount=400;radius=5} @self
+  - potion{t=BLINDNESS;d=60;l=1} @LivingInRadius{R=5}
+  - potion{t=SLOW;d=60;l=1} @LivingInRadius{R=5}
+  - delay 10
+  - remove @self
+MagicShoot:
+  Skills:
+  - effect:particleline{particle=WAKE;amount=2;fromOrigin=true;ys=1} @target
+  - potion{type=SLOW;lvl=2;duration=60} @PlayersInRadius{r=15}
+  - delay 60 
+  - damage{amount=2;ignorearmor=true} @target  
+SingleTargetFireEASY:
+  Cooldown: 1
+  Skills:
+  - potion{type=SLOW;d=60;level=7;} @self
+  - delay 60
+  - effect:particles{p=largesmoke;vs=1;hs=1;a=50;s=0.01;}
+  - effect:particles{p=flame;hs=1;vs=1;a=50;s=0.01;} @target
+  - effect:particleline{particle=flame;amount=2;fromOrigin=true;ys=1} @target  
+  - effect:particles{p=explode;vs=1;hs=1;a=50;s=0.01;}
+  - effect:sound{s=entity.ghast.fireball;v=1;p=1;}
+  - damage{a=2;ignorearmor=false;}
+  - ignite{d=40;} 
+AOEFireEASY:
+  Cooldown: 1
+  Conditions:
+  - targetwithin 5  
+  Skills:
+  - effect:particles{p=flame;hs=3;vs=1;a=100;s=0.01;}
+  - damage{a=3;ignorearmor=true;} @PIR{r=3}
+  - ignite{d=30;} @PIR{r=3}   
+CrushingLeap:
+  Cooldown: 1
+  Skills:
+  - leap{velocity=300} @target
+  - delay 20
+  - jump{velocity=-100}
+  - effect:explosion @self
+  - damage{amount=3} @EntitiesInRadius{r=1}  
+Bash:
+  Cooldown: 1
+  Conditions:
+  - targetwithin 3
+  - targetinlineofsight true
+  Skills:
+  - effect:sound{s=block.anvil.land;v=1;p=1;} @target
+  - skill{s=CrushingLeap} @target
+  - damage{a=3} @target
+  - potion{t=SLOW;d=20;l=7} @target 
+  - throw{velocity=5;velocityY=1} @Target  
+AOERandomSpell1:
+  Cooldown: 1
+  Conditions:
+  - targetwithin 5
+  - targetinlineofsight true
+  Skills:
+  - potion{t=SLOW;d=50;l=2} @LivingInRadius{R=5}
+  - delay 40
+  - message{msg="<mob.name><&co> &FBone Spikes!"} @PIR{r=20}
+  - effect:particlering{particle=portal;amount=400;radius=5} @self
+  - delay 10
+  - effect:itemspray{item=bone;amount=5;velocity=2.1;d=20;} @self
+  - effect:particlering{particle=portal;amount=400;radius=5} @self  
+  - damage{amount=3} @LivingInRadius{R=5} 
+AOERandomSpell2:
+  Cooldown: 1
+  Conditions:
+  - targetwithin 5
+  - targetinlineofsight true
+  Skills:
+  - potion{t=SLOW;d=50;l=2} @LivingInRadius{R=5}
+  - delay 40
+  - message{msg="<mob.name><&co> &FFire chains!"} @PIR{r=20}
+  - effect:particlering{particle=portal;amount=400;radius=5} @self
+  - delay 10
+  - effect:particleline{particle=flame;amount=2;fromOrigin=true;ys=1} @LivingInRadius{R=5}    
+  - effect:particlering{particle=portal;amount=400;radius=5} @self  
+  - damage{amount=2} @LivingInRadius{R=5}
+  - ignite{d=30;} @LivingInRadius{R=5}
+  - potion{t=SLOW;d=50;l=1} @LivingInRadius{R=5} 
+AOERandomSpell3:
+  Cooldown: 1
+  Conditions:
+  - targetwithin 5
+  - targetinlineofsight true
+  Skills:
+  - potion{t=SLOW;d=50;l=2} @LivingInRadius{R=5}
+  - delay 40
+  - message{msg="<mob.name><&co> &FVoid blast!"} @PIR{r=20}
+  - delay 20
+  - effect:explosion @self
+  - throw{velocity=5;velocityY=2} @LivingInRadius{R=5}     
+  - damage{amount=6} @LivingInRadius{R=5}   
+DarkArrow:
+  Cooldown: 1
+  Skills:
+  - potion{t=SLOW;d=50;l=2} @self
+  - delay 40
+  - effect:particleline{particle=smoke;amount=2;fromOrigin=true;ys=1} @target   
+  - damage{amount=2} @target
+  - potion{t=SLOW;d=30;l=1} @target
+  - delay 30
+  - effect:particlering{particle=smoke;amount=400;radius=5} @self
+  - potion{t=BLINDNESS;d=35;l=1} @target
+VoidSummoner: 
+  Cooldown: 1
+  Conditions:
+  - targetwithin 5
+  - targetinlineofsight true 
+  Skills:  
+  - summon{mob=DemonicGolem;amount=2;noise=5} @Self
+PlagueWarms: 
+  Cooldown: 1
+  Conditions:
+  - targetwithin 5
+  - targetinlineofsight true 
+  Skills:  
+  - summon{mob=PlagueWarms;amount=6;noise=5} @Self  
+WitchBolt:
+  Skills:
+  - projectile{onTick=WTCHB-Tick;onHit=WTCHB-Hit;v=6;i=2;hR=2;vR=2}
+WTCHB-Tick:
+  Skills:
+  - effect:particles{p=reddust;c=#250433;a=5;hS=0.3;vS=0.3;s=19;y=-0.1} @origin
+WTCHB-Hit:
+  Skills:
+  - effect:particles{p=reddust;c=#250433;a=15;hS=0.8;vS=0.8} @target
+  - damage{a=2;IgnoreArmour=false}
+WitchNova:
+  Cooldown: 0
+  Skills:
+  - damage{a=1} @PIR{r=3}
+  - throw{velocity=10;velocityY=10} @PIR{r=3}
+  - effect:particles{p=reddust;c=#250433;a=150;hS=3.0;vS=0.1;y=0.1;}
+  - delay 20
+  - damage{a=2} @PIR{r=4}
+  - throw{velocity=10;velocityY=10} @PIR{r=4}
+  - effect:particles{p=reddust;c=#250433;a=240;hS=4.0;vS=0.1;y=0.1;}
+  - delay 20
+  - damage{a=3} @PIR{r=5}
+  - throw{velocity=10;velocityY=10} @PIR{r=5}
+  - effect:particles{p=reddust;c=#250433;a=330;hS=5.0;vS=0.1;y=0.1;}
+ShooterShoot:
+  Skills:
+  - projectile{onTick=sbs-Tick;onHit=sbs-Hit;v=30;i=2;hR=2;vR=2}
+sbs-Tick:
+  Skills:
+  - effect:particles{p=reddust;c=#000000;a=3;hS=0.2;vS=0.2;s=1} @origin
+  - effect:particles{p=reddust;c=#4f4f4f;a=3;hS=0.2;vS=0.2;s=1} @origin  
+sbs-Hit:
+  Skills:
+  - effect:explosion @target
+  - damage{a=1;IgnoreArmour=false}
+ShooterDubleShoot:
+  Cooldown: 450
+  Conditions:
+  - targetwithin 15
+  Skills:
+  - message{msg="<mob.name><&co> &FRearmament!"} @PIR{r=20}  
+  - delay 10
+  - potion{t=SLOW;d=270;l=2} @self    
+  - equip{item=JDK:0}
+  - delay 40
+  - skill{s=ShooterShoot}
+  - delay 30
+  - skill{s=ShooterShoot}
+  - delay 70
+  - skill{s=ShooterShoot}
+  - delay 30
+  - skill{s=ShooterShoot}
+  - delay 70
+  - skill{s=ShooterShoot}
+  - delay 30
+  - skill{s=ShooterShoot} 
+  - message{msg="<mob.name><&co> &FRearmament!"} @PIR{r=20}
+  - delay 10  
+  - equip{item=gdk:0}
+AssasinLeap:
+  Cooldown: 1
+  Skills:
+  - leap{velocity=300} @target
+  - delay 20
+  - jump{velocity=-100}  
+LichBolt:
+  Skills:
+  - projectile{onTick=Lich-Tick;onHit=Lich-Hit;v=30;i=2;hR=2;vR=2;}
+Lich-Tick:
+  Skills:
+  - effect:particles{p=reddust;c=#430047;a=3;hS=0.2;vS=0.2;s=1} @origin
+  - effect:particles{p=reddust;c=#4f4f4f;a=3;hS=0.2;vS=0.2;s=1} @origin  
+Lich-Hit:
+  Skills:
+  - effect:particles{p=reddust;c=#4f4f4f;a=3;hS=0.5;vS=0.5;s=1} @target   
+  - damage{a=3;IgnoreArmour=false}  
+  - potion{t=SLOW;d=50;l=3}
+RiflShot:
+  Cooldown: 6
+  Skills:
+  - projectile{onTick=Rifl-Tick;onHit=Rifl-Hit;onEnd=Rifl-End;v=40;i=2;hR=2;vR=2}
+Rifl-Tick:
+  Skills:
+  - effect:particles{p=reddust;c=#4d4d4d;a=1;hS=0.1;vS=0.1;s=1} @origin
+  - effect:particles{p=reddust;c=#2f2c2c;a=1;hS=0.1;vS=0.1;s=1} @origin
+Rifl-Hit:
+  Skills:
+  - effect:particles{p=reddust;c=#4f4f4f;a=3;hS=0.5;vS=0.5;s=1} @target   
+Rifl-End:
+  Skills:
+  - damage{a=6} @target  
+CrossBowShoot:
+  Cooldown: 4
+  Skills:  
+  - arrowvolley{a=12;s=30;v=40;rd=400}
+HellBowShoot:
+  Cooldown: 4
+  Skills:  
+  - arrowvolley{a=2000;s=400;v=20;rd=200}  
+AssasinLeapP:
+  Cooldown: 5
+  Skills:
+  - leap{velocity=200} 
+IceElementalHandThrow: 
+  Cooldown: 5
+  Skills:
+  - potion{t=SLOW;d=35;l=3} @Self
+  - delay 10
+  - effect:explosion @self
+  - summon{mob=SnowElementalHand1;amount=1} @Self
+  - equip{item=void:0} @self 
+  - delay 40
+  - summon{mob=SnowElementalHand2;amount=1} @Self
+  - equip{item=void:5} @self
+  - delay 30
+  - equip{item=first:0} @self
+  - equip{item=first:5} @self  
+
+bladethrow:
+  Cooldown: 6
+  Conditions:
+  - targetwithin 6 
+  Skills:
+  - projectile{onTick=blade-Tick;onHit=blade-Hit;v=10;i=2;hR=2;vR=2}
+blade-Tick:
+  Skills:
+  - effect:itemspray{item=iron_sword;amount=1;velocity=1;d=15} @origin
+  - effect:particles{p=reddust;c=#4f4f4f;a=3;hS=0.5;vS=0.5;s=1} @origin
+blade-Hit:
+  Skills:
+  - effect:particles{p=sweepAttack;a=3;hS=0.5;vS=0.5;s=1} @target
+  - damage{a=4} @target
+MoonLedySpell:  
+  Cooldown: 6
+  Conditions:
+  - targetwithin 70
+  Skills:
+  - projectile{onTick=MoonLedySpell-Tick;onHit=MoonLedySpell-Hit;v=10;i=2;hR=2;vR=2;meteor=true} @target
+MoonLedySpell-Tick:
+  Skills:
+  - effect:particles{p=reddust;c=#8410ff;a=3;hS=0.5;vS=0.5;s=1} @origin
+  - effect:particles{p=reddust;c=#b67df2;a=3;hS=0.5;vS=0.5;s=1} @origin  
+  - effect:particles{p=reddust;c=#c6e2ff;a=3;hS=0.5;vS=0.5;s=1} @origin
+MoonLedySpell-Hit:
+  Skills:
+  - effect:particles{particle=fireworksSpark;amount=150;hS=0.1;vS=0.1;speed=1} @target
+  - damage{a=4} @target
+MoonLedyRage:
+  Skills:
+  - effect:particlering{p=reddust;c=#8410ff;radius=2;points=40;amount=100;hS=2;vS=34} @PIR{r=30}
+  - effect:particlering{p=reddust;c=#c6e2ff;radius=2;points=50;amount=100;hS=2;vS=34} @PIR{r=30}
+  - effect:particlering{p=reddust;c=#b67df2;radius=2;points=50;amount=100;hS=2;vS=34} @PIR{r=30} 
+  - effect:blockmask{m=Sea_Lantern;r=2;d=10;s=sphere;} @PIR{30} 
+  - damage{a=5} @PIR{30}
+  - delay 20
+MoonLedyMoonLightDamage:
+  Conditions:
+  - targetwithin 15  
+  Skills:
+  - effect:particlering{p=reddust;c=#8410ff;radius=2;points=40;amount=100;hS=2;vS=34} @target 
+  - effect:particlering{p=reddust;c=#c6e2ff;radius=2;points=50;amount=100;hS=2;vS=34} @target
+  - effect:particlering{p=reddust;c=#b67df2;radius=2;points=50;amount=100;hS=2;vS=34} @target 
+  - effect:blockmask{m=Sea_Lantern;r=2;d=10;s=sphere;} @target 
+  - damage{a=2} @target
+  - delay 20
+  - effect:particlering{p=reddust;c=#8410ff;radius=2;points=40;amount=100;hS=2;vS=34} @target 
+  - effect:particlering{p=reddust;c=#c6e2ff;radius=2;points=50;amount=100;hS=2;vS=34} @target
+  - damage{a=2} @target
+  - effect:blockmask{m=Sea_Lantern;r=2;d=10;s=sphere;} @target
+  - delay 20
+  - effect:particlering{p=reddust;c=#8410ff;radius=2;points=40;amount=100;hS=2;vS=34} @target 
+  - effect:particlering{p=reddust;c=#c6e2ff;radius=2;points=50;amount=100;hS=2;vS=34} @target
+  - effect:blockmask{m=Sea_Lantern;r=2;d=10;s=sphere;} @target  
+  - effect:particlering{p=reddust;c=#b67df2;radius=2;points=50;amount=100;hS=2;vS=34} @target 
+  - damage{a=2} @target 
+MoonMaidSummon:
+  Cooldown: 1
+  Skills:
+  - effect:explosion @self
+  - summon{mob=MoonMaid;amount=1} @Self
+MoonMageFamiliarSummon:
+  Cooldown: 1
+  Skills:
+  - effect:explosion @self
+  - summon{mob=MoonFamiliar;amount=4} @Self
+MoonGuardSummon:  
+  Cooldown: 1
+  Skills:
+  - effect:explosion @self
+  - summon{mob=MoonGuard;amount=1} @Self
+MoonPrisonerSummon:  
+  Cooldown: 1
+  Skills:
+  - effect:explosion @self
+  - summon{mob=MoonPrisoner;amount=1} @Self
+MoonMageSummon:
+  Cooldown: 1
+  Skills:
+  - effect:explosion @self
+  - summon{mob=MoonMage;amount=1} @Self  
+MoonLightSummon:
+  Cooldown: 1
+  Skills:
+  - effect:explosion @self
+  - summon{mob=MoonLight;amount=3;r=8} @Self    
+MoonLedyMassSpell:  
+  Cooldown: 6
+  Skills:
+  - projectile{onTick=MoonLedySpell-Tick;onHit=MoonLedySpell-Hit;v=6;i=2;hR=2;vR=2;meteor=true} @PIR{r=20}
+MoonLedyMoonLight:
+  Conditions: 
+  Skills:
+  - effect:particlering{p=reddust;c=#8410ff;radius=2;points=40;amount=200;hS=2;vS=34} @self 
+  - effect:particlering{p=reddust;c=#c6e2ff;radius=2;points=50;amount=200;hS=2;vS=34} @self
+  - effect:particlering{p=reddust;c=#b67df2;radius=2;points=50;amount=200;hS=2;vS=34} @self 
+  - effect:blockmask{m=Sea_Lantern;r=2;d=10;s=sphere;} @self
+  - delay 20
+  - effect:particlering{p=reddust;c=#8410ff;radius=2;points=40;amount=200;hS=2;vS=34} @self 
+  - effect:particlering{p=reddust;c=#c6e2ff;radius=2;points=50;amount=200;hS=2;vS=34} @self
+  - effect:blockmask{m=Sea_Lantern;r=2;d=10;s=sphere;} @self
+  - delay 20
+  - effect:particlering{p=reddust;c=#8410ff;radius=2;points=40;amount=200;hS=2;vS=34} @self 
+  - effect:particlering{p=reddust;c=#c6e2ff;radius=2;points=50;amount=200;hS=2;vS=34} @self
+  - effect:blockmask{m=Sea_Lantern;r=2;d=10;s=sphere;} @self
+  - effect:particlering{p=reddust;c=#b67df2;radius=2;points=50;amount=200;hS=2;vS=34} @self
+  - randomskill 
+    {
+    skills=
+    MoonGuardSummon,
+    MoonPrisonerSummon,
+    MoonMageSummon
+    }   
+  - suicide @self
+  
+MoonSpear:  
+  Cooldown: 6
+  Conditions:
+  - targetwithin 70
+  Skills:
+  - projectile{onTick=MoonSpear-Tick;onHit=MoonSpear-Hit;v=8;i=2;hR=2;vR=2;meteor=true} @target
+MoonSpear-Tick:
+  Skills:
+  - effect:particleline{p=reddust;c=#8410ff;a=3;fo=true;ys=1} @origin
+  - effect:particleline{p=reddust;c=#b67df2;a=3;fo=true;ys=1} @origin
+  - effect:particleline{p=reddust;c=#c6e2ff;a=3;fo=true;ys=1} @origin  
+MoonSpear-Hit:
+  Skills:
+  - effect:particles{particle=fireworksSpark;amount=150;hS=0.1;vS=0.1;speed=1} @target
+  - damage{a=4} @target 
+  
+  
+  
+MoonMageRandomSkill:
+  Skills:
+  - randomskill 
+    {
+    skills=
+    MoonMageFamiliarSummon,
+    MoonSpear,
+    MoonLedyMoonLightDamage,
+    }   
+
+MoonLedyRandomSkill:
+  Conditions: 
+  Skills:
+  - randommessage
+    {
+    m=
+    "<mob.name><&co> &FFeel the power of the moon!",
+    "<mob.name><&co> &FThe moon will crush you!",
+    "<mob.name><&co> &FProstrate before the power of the moon!",
+    "<mob.name><&co> &FYou will burn in the fire of my power!";
+    } @PIR{r=20}
+  - delay 30    
+  - randomskill 
+    {
+    skills=
+    MoonLedyMoonLightDamage,
+    MoonLedySpell,
+    MoonLedyRage
+    MoonLedyMassSpell
+    }       
+    
+  
+    
+AOERandomSpell:
+  Cooldown: 1
+  Conditions:
+  - targetwithin 5
+  - targetinlineofsight true
+  Skills:  
+  - randomskill 
+    {
+    skills=
+    AOERandomSpell1,
+    AOERandomSpell2,
+    AOERandomSpell3
+    }   
+  - delay 20  
+   
+RobotLeap:
+  Cooldown: 1
+  Skills:
+  - leap{velocity=300} @target
+  - effect:particles{p=reddust;color=#3a3232;amount=50;hS=0.43;vS=2;speed=20} @self  
+  - effect:particles{p=reddust;color=#3a3232;amount=50;hS=0.43;vS=2;speed=20} @self 
+  - delay 20
+  - jump{velocity=-100}  
+  - effect:particles{p=reddust;color=#000000;amount=50;hS=0.4;vS=2;speed=20} @self
+
+FireBall:  
+  Cooldown: 6
+  Conditions:
+  - targetwithin 10
+  Skills:
+  - projectile{onTick=FB-Tick;onHit=FB-Hit;v=8;i=2;hR=2;vR=2;} @target
+FB-Tick:
+  Skills:
+  - effect:particles{p=reddust;color=#3a3232;amount=50;hS=0.5;vS=2;speed=20} @origin
+  - effect:particles{p=reddust;color=#000000;amount=50;hS=0.5;vS=2;speed=20} @origin
+  - effect:particles{p=reddust;color=#FFE200;amount=25;hS=0.5;vS=2;speed=20} @origin
+  - effect:particles{p=reddust;color=#DB3328;amount=20;hS=0.5;vS=2;speed=20} @origin
+FB-Hit:
+  Skills:
+  - effect:explosion @target
+  - damage{a=4} @target
+  - ignite{d=40;} @target
